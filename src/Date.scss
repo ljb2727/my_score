@@ -1,0 +1,15 @@
+.react-datepicker__day--keyboard-selected,
+.react-datepicker__month-text--keyboard-selected,
+.react-datepicker__quarter-text--keyboard-selected,
+.react-datepicker__year-text--keyboard-selected {
+  background: none;
+  color: #000;
+}
+
+.react-datepicker__day--outside-month {
+  color: #f0f0f0;
+}
+
+.MuiDialogContent-root > div {
+  display: flex;
+}
