@@ -1,15 +1,16 @@
-.react-datepicker__day--keyboard-selected,
-.react-datepicker__month-text--keyboard-selected,
-.react-datepicker__quarter-text--keyboard-selected,
-.react-datepicker__year-text--keyboard-selected {
-  background: none;
-  color: #000;
-}
-
-.react-datepicker__day--outside-month {
-  color: #f0f0f0;
-}
-
-.MuiDialogContent-root > div {
-  display: flex;
+.MuiCalendarPicker-root {
+  > div:first-child > div:first-child > div:first-child {
+    order: 2;
+  }
+  > div:first-child > div:first-child > div:nth-child(2) {
+    padding-right: 1em;
+    position: relative;
+  }
+  > div:first-child > div:first-child > div:nth-child(2):after {
+    content: "년";
+    position: absolute;
+    color: #000;
+    top: 0;
+    right: 6px;
+  }
 }

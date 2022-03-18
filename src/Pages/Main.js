@@ -1,15 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import Typography from "@mui/material/Typography";
-import Dialog from "../Components/Dialog";
+import TextField from "@mui/material/TextField";
+import Autocomplete from "@mui/material/Autocomplete";
+import Box from "@mui/material/Box";
+import Mpicker from "../Components/Mpicker";
+import golfzone from "../Golfzone";
 function Main() {
-  let [date, setDate] = useState(new Date());
-  let [time, setTime] = useState(new Date());
   return (
     <>
       <Typography variant="h6" color="initial">
         score
       </Typography>
-      <Dialog date={date} setDate={setDate} />
+      <Box sx={{ p: 2, border: "1px dashed grey" }}>
+        <Mpicker />
+      </Box>
     </>
   );
 }
