@@ -3,8 +3,9 @@ import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import Slide from "@mui/material/Slide";
-
 import Date from "./Date";
+
+import { CalendarMonth, AccessTime } from "@mui/icons-material";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -28,7 +29,11 @@ export default function AlertDialogSlide(props) {
 
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
+      <Button
+        variant="outlined"
+        onClick={handleClickOpen}
+        startIcon={<CalendarMonth />}
+      >
         {props.date.toISOString().substr(0, 10)}
       </Button>
       <Dialog
