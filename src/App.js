@@ -8,7 +8,7 @@ import Main from "./Pages/Main";
 function App() {
   return (
     <>
-      <Container maxWidth="md">
+      <Container maxWidth="sm">
         <Routes>
           <Route path="/" element={<Main></Main>} />
         </Routes>
