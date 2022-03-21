@@ -26,6 +26,11 @@ export default function CustomInput() {
         onChange={(newValue) => {
           setValue(newValue);
         }}
+        onClose={() =>
+          setTimeout(() => {
+            document.activeElement.blur();
+          }, 0)
+        }
         renderInput={({ inputRef, inputProps, InputProps }) => (
           // <Box sx={{ display: "flex", alignItems: "center" }}>
           //   <button ref={inputRef} {...inputProps}>

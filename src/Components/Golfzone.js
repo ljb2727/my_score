@@ -14,8 +14,21 @@ const filterOptions = (options, { inputValue }) => {
 };
 function Golfzone() {
   const [open, setOpen] = React.useState(false);
+
+  function blur() {
+    setTimeout(() => {
+      document.activeElement.blur();
+    }, 0);
+  }
+
+  function close() {
+    setOpen(false);
+    blur();
+  }
+
   return (
     <Autocomplete
+      autoFocus
       open={open}
       onInputChange={(_, value) => {
         console.log(value);
@@ -25,14 +38,14 @@ function Golfzone() {
           if (!open) setOpen(true);
         }
       }}
-      onClose={() => setOpen(false)}
+      onClose={close}
       getOptionLabel={(option) => option.label}
       filterOptions={filterOptions}
       disablePortal
       id="combo-box-demo"
       options={golfzone}
       //disableClearable
-      sx={{ width: "100%" }}
+      fullWidth
       renderInput={(params) => (
         <TextField
           {...params}
