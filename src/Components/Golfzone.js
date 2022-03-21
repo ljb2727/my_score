@@ -41,7 +41,6 @@ function Golfzone() {
             startAdornment: <PlaceOutlinedIcon />,
           }}
           label="검색"
-          variant="outlined"
         />
       )}
       popupIcon={null}

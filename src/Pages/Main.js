@@ -11,8 +11,10 @@ function Main() {
       <Typography variant="h6" color="initial">
         hi
       </Typography>
-      <Box sx={{ p: 2, border: "1px dashed grey" }}>
-        <Golfzone />
+      <Box sx={{ mt: 1 }}>
+        <Golfzone /> <br />
+      </Box>
+      <Box sx={{ mt: 1 }}>
         <Mpicker />
       </Box>
     </>
