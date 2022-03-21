@@ -17,6 +17,8 @@ import InputAdornment from "@mui/material/InputAdornment";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 
+import course_list from "../Data/cousr_list";
+
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -107,14 +109,5 @@ function Golfcourse({ handleChange, value, id, label }) {
     </FormControl>
   );
 }
-
-let course_list = [
-  {
-    id: 0,
-    course: ["a1", "a2", "a3"],
-  },
-  { id: 1, course: ["b1", "b2", "b3"] },
-  { id: 2, course: ["c1", "c2", "c3"] },
-];
 
 export default Course;
