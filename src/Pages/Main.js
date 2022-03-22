@@ -8,13 +8,15 @@ import Mpicker from "../Components/Mpicker";
 import Time from "../Components/Time";
 import Button from "@mui/material/Button";
 
+function createScore() {
+  console.log("create");
+}
 function Main() {
   return (
     <>
       <Typography variant="h6" color="initial">
-        hi
+        search
       </Typography>
-      <br />
 
       <Box sx={{ mt: 1 }}>
         <Grid container spacing={2}>
@@ -34,7 +36,13 @@ function Main() {
             <Time />
           </Grid>
           <Grid item xs={12}>
-            <Button variant="contained" size="large" color="primary" fullWidth>
+            <Button
+              variant="contained"
+              size="large"
+              color="primary"
+              fullWidth
+              onClick={createScore}
+            >
               생성
             </Button>
           </Grid>
