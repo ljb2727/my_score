@@ -111,11 +111,18 @@ function Golfzone() {
       </Dialog>
 
       <TextField
+        id="golfzone"
         fullWidth
         label={"골프장 검색"}
         autoComplete="off"
         value={zone}
         onClick={() => setDia(true)}
+        disabled
+        sx={{
+          "& .Mui-disabled": {
+            textFillColor: "#000 !important",
+          },
+        }}
       />
     </>
   );

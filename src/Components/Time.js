@@ -125,12 +125,19 @@ export default function Time() {
       </Dialog>
 
       <TextField
+        id="time"
         label="시간"
         autoComplete="off"
         onClose={handleClose}
         onClick={() => setOpen(true)}
         fullWidth
         value={`${time.오전오후} ${time.시} ${time.분}`}
+        disabled
+        sx={{
+          "& .Mui-disabled": {
+            textFillColor: "#000 !important",
+          },
+        }}
       />
     </>
   );

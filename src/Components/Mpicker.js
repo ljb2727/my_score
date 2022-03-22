@@ -66,12 +66,19 @@ export default function CustomInput() {
       </Dialog>
 
       <TextField
+        id="date"
         fullWidth
         inputProps={{ style: { fontSize: "1rem" } }} // font size of input text
         label="날짜"
         value={format(value, "yyyy년 MM월 dd일")}
         onClick={() => {
           setOpen(true);
+        }}
+        disabled
+        sx={{
+          "& .Mui-disabled": {
+            textFillColor: "#000 !important",
+          },
         }}
       />
     </>
