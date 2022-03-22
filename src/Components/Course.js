@@ -48,6 +48,8 @@ function Course({ label }) {
       <TextField
         onClick={handleClickOpen}
         autoComplete="off"
+        label="코스"
+        fullWidth
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
