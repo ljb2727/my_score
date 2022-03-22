@@ -11,7 +11,10 @@ export default function Toast({ message, setToastShow }) {
   const { open, vertical, horizontal } = toast;
   const handleClose = () => {
     setToast({ ...toast, open: false });
-    setToastShow(false);
+    setToastShow({
+      show: false,
+      message: "",
+    });
   };
   return (
     <>

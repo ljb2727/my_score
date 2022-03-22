@@ -22,8 +22,10 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 function Course({ label, id }) {
   // 토스트 설정_s
-  const [toastShow, setToastShow] = React.useState(false);
-  const [message, setMessage] = React.useState("");
+  const [toastShow, setToastShow] = React.useState({
+    show: false,
+    message: "",
+  });
   // 토스트 설정_e
 
   const [open, setOpen] = useState(false);
@@ -34,8 +36,10 @@ function Course({ label, id }) {
     if (event.target.id === "course2") {
       const course1 = document.getElementById("course1").value;
       if (!course1) {
-        setToastShow(true);
-        setMessage("먼저 전반코스를 선택해주세요.");
+        setToastShow({
+          show: true,
+          message: "먼저 전반코스를 선택해주세요.",
+        });
         blur();
         return false;
       } else {
@@ -44,8 +48,10 @@ function Course({ label, id }) {
     } else {
       const golfzone = document.getElementById("golfzone").value;
       if (!golfzone) {
-        setToastShow(true);
-        setMessage("먼저 골프장을 선택해주세요.");
+        setToastShow({
+          show: true,
+          message: "먼저 골프장을 선택해주세요.",
+        });
         blur();
         return false;
       } else {
@@ -72,7 +78,9 @@ function Course({ label, id }) {
 
   return (
     <>
-      {toastShow && <Toast message={message} setToastShow={setToastShow} />}
+      {toastShow.show && (
+        <Toast message={toastShow.message} setToastShow={setToastShow} />
+      )}
       <TextField
         id={id}
         onClick={handleClickOpen}

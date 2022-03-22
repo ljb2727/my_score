@@ -10,8 +10,10 @@ import Button from "@mui/material/Button";
 import Toast from "../Components/Toast";
 
 function Main() {
-  const [toastShow, setToastShow] = React.useState(false);
-  const [message, setMessage] = React.useState("");
+  const [toastShow, setToastShow] = React.useState({
+    show: false,
+    message: "",
+  });
 
   function createScore() {
     const golfzone = document.getElementById("golfzone").value;
@@ -21,14 +23,23 @@ function Main() {
     const time = document.getElementById("time").value;
 
     if (!golfzone) {
-      setToastShow(true);
-      setMessage("먼저 골프장을 선택해주세요.");
-      return false;
+      setToastShow({
+        show: true,
+        message: "먼저 골프장을 선택해주세요.",
+      });
+    }
+    if (!course1) {
+      setToastShow({
+        show: true,
+        message: "먼저 전반코스를 선택해주세요.",
+      });
     }
   }
   return (
     <>
-      {toastShow && <Toast message={message} setToastShow={setToastShow} />}
+      {toastShow.show && (
+        <Toast message={toastShow.message} setToastShow={setToastShow} />
+      )}
 
       <Typography variant="h6" color="initial">
         search
