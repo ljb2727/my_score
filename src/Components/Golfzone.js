@@ -29,7 +29,7 @@ function Golfzone() {
   const [openDia, setDia] = useState(false);
 
   //골프장정보
-  const [zone, setZone] = useState("");
+  const [zone, setZone] = useState("test");
 
   function blur() {
     setTimeout(() => {
@@ -47,6 +47,11 @@ function Golfzone() {
     setTimeout(function () {
       document.activeElement.blur();
     }, 0);
+  }
+
+  function reset() {
+    setZone("");
+    console.log("자식호춯ㄹ");
   }
 
   return (
