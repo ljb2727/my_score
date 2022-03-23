@@ -8,19 +8,13 @@ import Mpicker from "../Components/Mpicker";
 import Time from "../Components/Time";
 import Button from "@mui/material/Button";
 import Toast from "../Components/Toast";
+import useStore from "../Data/useStore";
 
 function Main() {
+  const { count, info, 라운드추가, 증가 } = useStore();
   const [toastShow, setToastShow] = React.useState({
     show: false,
     message: "",
-  });
-
-  const [data, setData] = React.useState({
-    골프장: "",
-    전반: "",
-    후반: "",
-    날짜: "",
-    시간: "",
   });
 
   function createScore() {
@@ -44,14 +38,12 @@ function Main() {
       });
       return null;
     }
-    setData({
-      골프장: golfzone,
-      전반: course1,
-      후반: course2,
-      날짜: date,
-      시간: time,
-    });
+
+    //추후 하단 이동
+    라운드추가(golfzone, course1, course2, date, time);
+    document.getElementById("golfzone").value = "";
   }
+
   return (
     <>
       {toastShow.show && (
@@ -89,7 +81,8 @@ function Main() {
               생성
             </Button>
 
-            {`${data.골프장} / ${data.전반} / ${data.후반} / ${data.날짜} / ${data.시간}`}
+            <br />
+            {count}
           </Grid>
         </Grid>
       </Box>
