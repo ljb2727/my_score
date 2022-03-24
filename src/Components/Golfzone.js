@@ -13,6 +13,7 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Slide from "@mui/material/Slide";
+import useStore from "../Data/useStore";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -25,11 +26,12 @@ const filterOptions = (options, { inputValue }) => {
   });
 };
 function Golfzone() {
+  const { useGolfzone, setGolfzone, useCourse1, useCourse2 } = useStore();
   const [open, setOpen] = useState(false);
   const [openDia, setDia] = useState(false);
 
   //골프장정보
-  const [zone, setZone] = useState("test");
+  const [zone, setZone] = useState("");
 
   function blur() {
     setTimeout(() => {
@@ -47,11 +49,6 @@ function Golfzone() {
     setTimeout(function () {
       document.activeElement.blur();
     }, 0);
-  }
-
-  function reset() {
-    setZone("");
-    console.log("자식호춯ㄹ");
   }
 
   return (
@@ -72,7 +69,7 @@ function Golfzone() {
             autoFocus
             open={open}
             onInputChange={(_, value) => {
-              setZone(value);
+              setGolfzone(value);
               if (value.length === 0) {
                 if (open) setOpen(false);
               } else {
@@ -119,7 +116,7 @@ function Golfzone() {
         fullWidth
         label={"골프장 검색"}
         autoComplete="off"
-        value={zone}
+        value={useGolfzone}
         onClick={() => setDia(true)}
         disabled
         sx={{

@@ -15,12 +15,14 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import course_list from "../Data/cousr_list";
 import Toast from "../Components/Toast";
+import useStore from "../Data/useStore";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
 function Course({ label, id }) {
+  const { useCourse1, setCourse1, useCourse2, setCourse2 } = useStore();
   // 토스트 설정_s
   const [toastShow, setToastShow] = React.useState({
     show: false,
