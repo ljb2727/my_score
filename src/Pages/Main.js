@@ -11,7 +11,7 @@ import Toast from "../Components/Toast";
 import useStore from "../Data/useStore";
 
 function Main() {
-  const { count, info, 라운드추가, setGolfzone } = useStore();
+  const { count, info, 라운드추가, resetStore } = useStore();
   const [toastShow, setToastShow] = React.useState({
     show: false,
     message: "",
@@ -41,7 +41,7 @@ function Main() {
 
     //라운드생성
     라운드추가(golfzone, course1, course2, date, time);
-    setGolfzone(""); //useStore 골프장명 리셋
+    resetStore(); //useStore 골프장명 리셋
   }
 
   return (

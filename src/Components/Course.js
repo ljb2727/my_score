@@ -22,7 +22,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 function Course({ label, id }) {
-  const { useCourse1, setCourse1, useCourse2, setCourse2 } = useStore();
+  const { useCourse, setCourse } = useStore();
   // 토스트 설정_s
   const [toastShow, setToastShow] = React.useState({
     show: false,
@@ -74,10 +74,15 @@ function Course({ label, id }) {
   };
 
   const handleChange = (event) => {
-    setRadio(event.target.value);
+    //console.log(event.target);
+    //setRadio(event.target.value);
+    if (event.target.name === "전반") {
+      setCourse({ ...useCourse, 전반: event.target.value });
+    } else {
+      setCourse({ ...useCourse, 후반: event.target.value });
+    }
     handleClose();
   };
-
   return (
     <>
       {toastShow.show && (
@@ -103,7 +108,7 @@ function Course({ label, id }) {
             textFillColor: "#000 !important",
           },
         }}
-        value={radio}
+        value={id === "course1" ? useCourse.전반 : useCourse.후반} //코스 값
         disabled
       />
       <Dialog
@@ -123,7 +128,7 @@ function Course({ label, id }) {
         <Golfcourse
           id={0}
           handleChange={handleChange}
-          value={radio}
+          value={useCourse}
           label={label}
         />
       </Dialog>
@@ -132,9 +137,17 @@ function Course({ label, id }) {
 }
 
 function Golfcourse({ handleChange, value, id, label }) {
+  let radioValue = "";
+  if (label === "전반") {
+    radioValue = value.전반;
+  } else {
+    radioValue = value.후반;
+  }
+  console.log(radioValue);
+
   return (
     <FormControl>
-      <RadioGroup name="course_list" onChange={handleChange} value={value}>
+      <RadioGroup name={label} onChange={handleChange} value={radioValue}>
         <List>
           {course_list[id].course.map((e, i) => {
             return (
