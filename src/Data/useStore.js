@@ -4,16 +4,16 @@ const useStore = create((set) => ({
   count: 999, //아이디부여
   info: [
     {
-      id: 0,
-      골프장: "강남300",
+      id: 100,
+      골프장: "강남100",
       전반: "a1",
       후반: "a2",
       날짜: "2022년 03월 24일",
       시간: "오전 10시 30분",
     },
     {
-      id: 1,
-      골프장: "강남100",
+      id: 101,
+      골프장: "강남200",
       전반: "a1",
       후반: "a2",
       날짜: "2022년 04월 24일",
@@ -58,6 +58,12 @@ const useStore = create((set) => ({
       };
       console.log("라운드추가");
       return { info: [...state.info, rounding] };
+    }),
+  라운드삭제: (parentId) =>
+    set((state) => {
+      console.log("라운드삭제");
+      const filter = state.info.filter((e) => e.id !== parentId);
+      return { info: filter };
     }),
 }));
 

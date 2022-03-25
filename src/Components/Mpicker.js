@@ -53,6 +53,7 @@ export default function CustomInput() {
               setValue(newValue);
             }}
             renderInput={() => {}}
+            showTodayButton="true"
           />
         </LocalizationProvider>
         <Button

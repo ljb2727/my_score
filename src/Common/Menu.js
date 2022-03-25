@@ -3,33 +3,47 @@ import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import Divider from "@mui/material/Divider";
+import SettingsIcon from "@mui/icons-material/Settings";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import Typography from "@mui/material/Typography";
+import useStore from "../Data/useStore";
 
 const options = [
-  "None",
-  "Atria",
-  "Callisto",
-  "Dione",
-  "Ganymede",
-  "Hangouts Call",
-  "Luna",
-  "Oberon",
-  "Phobos",
-  "Pyxis",
-  "Sedna",
-  "Titania",
-  "Triton",
-  "Umbriel",
+  {
+    icon: <SettingsIcon fontSize="small" sx={{ mr: 1 }} />,
+    text: "라운드 수정",
+    id: "modifyMenu",
+  },
+  {
+    icon: <DeleteForeverIcon fontSize="small" sx={{ mr: 1 }} />,
+    text: "라운드 삭제",
+    id: "removeMenu",
+  },
 ];
 
-const ITEM_HEIGHT = 48;
-
-export default function LongMenu() {
+export default function LongMenu({ parentId }) {
+  const { 라운드삭제 } = useStore(); //라운딩 정보 배열
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
+    console.log(event);
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleMenuItemClick = (event, index, parentId) => {
+    /*
+    index0 = 수정
+    index1 = 삭제
+    parentId = uesStore info.id 값
+    */
+    console.log(parentId);
+    if (index === 1) {
+      라운드삭제(parentId);
+    }
     setAnchorEl(null);
   };
 
@@ -50,21 +64,26 @@ export default function LongMenu() {
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
-        PaperProps={{
-          style: {
-            maxHeight: ITEM_HEIGHT * 4.5,
-            width: "100px",
+        sx={{
+          "& ul": {
+            padding: 0,
           },
         }}
       >
-        {options.map((option) => (
-          <MenuItem
-            key={option}
-            selected={option === "Pyxis"}
-            onClick={handleClose}
-          >
-            {option}
-          </MenuItem>
+        {options.map((option, index) => (
+          <div key={index}>
+            {index !== 0 && <Divider />}
+            <MenuItem
+              onClick={(event) => handleMenuItemClick(event, index, parentId)}
+              id={options[index].id}
+            >
+              {options[index].icon}
+              <Typography variant="body2" color="initial">
+                {options[index].text}
+                `$부모id{parentId}`
+              </Typography>
+            </MenuItem>
+          </div>
         ))}
       </Menu>
     </div>

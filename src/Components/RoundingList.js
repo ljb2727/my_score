@@ -1,13 +1,11 @@
 import React from "react";
 import useStore from "../Data/useStore";
-
-import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
-import Stack from "@mui/material/Stack";
 import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 
 import Menu from "../Common/Menu";
+import Button from "@mui/material/Button";
 
 const RoundingList = () => {
   const { info } = useStore();
@@ -29,6 +27,7 @@ const RoundingList = () => {
         return (
           <Item
             key={id}
+            id={id}
             골프장={골프장}
             전반={전반}
             후반={후반}
@@ -53,13 +52,22 @@ function Item({ id, 골프장, 전반, 후반, 날짜, 시간 }) {
   return (
     <>
       <StyleItem sx={{ position: "relative" }}>
-        <Menu />
-        <Typography variant="body1">{날짜}</Typography>
+        <Menu parentId={id} />
+        <Typography variant="caption">{날짜}</Typography>
         <Typography variant="body1">{골프장}</Typography>
-        <Typography variant="body1">
-          {전반}
-          {후반.length !== 0 && ` - ${후반}`}
+        <Typography variant="caption" color="text.secondary">
+          {`전반:${전반}`}
+          {후반.length !== 0 && ` - 후반:${후반}`}
         </Typography>
+        <Button
+          variant="contained"
+          size="small"
+          color="secondary"
+          sx={{ position: "absolute", right: "5px", bottom: "5px" }}
+          disableElevation
+        >
+          입력{id}
+        </Button>
       </StyleItem>
     </>
   );
