@@ -21,6 +21,10 @@ const theme = createTheme({
       main: "#4D96FF",
       contrastText: "#fff",
     },
+    common: {
+      main: "#9e9e9e",
+      contrastText: "#fff",
+    },
   },
 });
 

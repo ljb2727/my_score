@@ -13,7 +13,7 @@ import useStore from "../Data/useStore";
 import RoundingList from "../Components/RoundingList";
 
 function Main() {
-  const { count, info, 라운드추가, resetStore } = useStore();
+  const { count, 라운드추가, resetStore } = useStore();
   const [toastShow, setToastShow] = React.useState({
     show: false,
     message: "",
@@ -53,7 +53,7 @@ function Main() {
       )}
 
       <Typography variant="h6" color="initial">
-        search
+        search {`count : ${count}`}
       </Typography>
       <Box sx={{ mt: 1 }}>
         <Grid container spacing={2}>
