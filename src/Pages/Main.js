@@ -7,8 +7,10 @@ import Grid from "@mui/material/Grid";
 import Mpicker from "../Components/Mpicker";
 import Time from "../Components/Time";
 import Button from "@mui/material/Button";
-import Toast from "../Components/Toast";
+import Toast from "../Common/Toast";
 import useStore from "../Data/useStore";
+
+import RoundingList from "../Components/RoundingList";
 
 function Main() {
   const { count, info, 라운드추가, resetStore } = useStore();
@@ -80,9 +82,10 @@ function Main() {
             >
               생성
             </Button>
+          </Grid>
 
-            <br />
-            {count}
+          <Grid item xs={12}>
+            <RoundingList />
           </Grid>
         </Grid>
       </Box>

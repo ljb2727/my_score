@@ -14,7 +14,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import course_list from "../Data/cousr_list";
-import Toast from "../Components/Toast";
+import Toast from "../Common/Toast";
 import useStore from "../Data/useStore";
 
 const Transition = React.forwardRef(function Transition(props, ref) {

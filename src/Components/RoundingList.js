@@ -7,6 +7,8 @@ import Stack from "@mui/material/Stack";
 import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 
+import Menu from "../Common/Menu";
+
 const RoundingList = () => {
   const { info } = useStore();
   // const info = [
@@ -50,10 +52,14 @@ const StyleItem = styled(Paper)(({ theme }) => ({
 function Item({ id, 골프장, 전반, 후반, 날짜, 시간 }) {
   return (
     <>
-      <StyleItem>
+      <StyleItem sx={{ position: "relative" }}>
+        <Menu />
         <Typography variant="body1">{날짜}</Typography>
         <Typography variant="body1">{골프장}</Typography>
-        <Typography variant="body1">{`${전반}`}</Typography>
+        <Typography variant="body1">
+          {전반}
+          {후반.length !== 0 && ` - ${후반}`}
+        </Typography>
       </StyleItem>
     </>
   );
