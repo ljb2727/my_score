@@ -11,9 +11,9 @@ import useStore from "../Data/useStore";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-
 import Slide from "@mui/material/Slide";
 import Button from "@mui/material/Button";
+import { useNavigate, useParams } from "react-router";
 
 const options = [
   {
@@ -33,6 +33,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function LongMenu({ parentId }) {
+  let navigate = useNavigate();
   const { 라운드삭제 } = useStore(); //라운딩 정보 배열
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -52,7 +53,10 @@ export default function LongMenu({ parentId }) {
     console.log(parentId);
     if (index === 1) {
       setDialog(true);
-      //라운드삭제(parentId);
+      //dialog 띄워서 다시 확인함
+    } else {
+      console.log("수정");
+      navigate(`/modify/${parentId}`);
     }
     setAnchorEl(null);
   };
