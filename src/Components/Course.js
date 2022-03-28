@@ -13,25 +13,26 @@ import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
-import course_list from "../Data/cousr_list";
 import Toast from "../Common/Toast";
 import useStore from "../Data/useStore";
+import course_list from "../Data/Golfzone";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
 function Course({ label, id }) {
-  const { useCourse, setCourse } = useStore();
+  const { useCourse, setCourse, currentId } = useStore();
   // 토스트 설정_s
   const [toastShow, setToastShow] = React.useState({
     show: false,
     message: "",
   });
+
+  const [defaultCourse, setdefaultCourse] = React.useState();
   // 토스트 설정_e
 
   const [open, setOpen] = useState(false);
-  const [radio, setRadio] = useState("");
 
   const handleClickOpen = (event) => {
     //전반 코스 없으면 후반 코스 disable
@@ -83,6 +84,18 @@ function Course({ label, id }) {
     }
     handleClose();
   };
+
+  //setdefaultCourse();
+  //;
+
+  React.useEffect(() => {
+    console.log("골프장 변경시 코스 리셋");
+    if (currentId !== null) {
+      setdefaultCourse(course_list.filter((e) => e.id === currentId)[0].course);
+      setCourse({ 전반: "", 후반: "" });
+    }
+  }, [currentId]);
+
   return (
     <>
       {toastShow.show && (
@@ -130,26 +143,26 @@ function Course({ label, id }) {
           handleChange={handleChange}
           value={useCourse}
           label={label}
+          defaultCourse={defaultCourse}
         />
       </Dialog>
     </>
   );
 }
 
-function Golfcourse({ handleChange, value, id, label }) {
+function Golfcourse({ handleChange, value, id, label, defaultCourse }) {
   let radioValue = "";
   if (label === "전반") {
     radioValue = value.전반;
   } else {
     radioValue = value.후반;
   }
-  console.log(radioValue);
 
   return (
     <FormControl>
       <RadioGroup name={label} onChange={handleChange} value={radioValue}>
         <List>
-          {course_list[id].course.map((e, i) => {
+          {defaultCourse.map((e, i) => {
             return (
               <div key={i}>
                 {i !== 0 && <Divider />}

@@ -1,6 +1,7 @@
 .MuiCalendarPicker-root {
   > div:first-child > div:first-child > div:first-child {
     order: 2;
+    margin-left: 0.4em;
   }
   > div:first-child > div:first-child > div:nth-child(2) {
     padding-right: 1em;
@@ -11,6 +12,6 @@
     position: absolute;
     color: #000;
     top: 0;
-    right: 6px;
+    right: 0px;
   }
 }

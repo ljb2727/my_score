@@ -2,9 +2,19 @@ import create from "zustand";
 
 const useStore = create((set) => ({
   count: 999, //아이디부여
+  currentId: null, //현재 선택된 골프장의 코스 정보를 알기위한 임시 아이디
   info: [
+    //라운드정보 어레이
+    /*{
+    id: 0, //골프장 개별 id와 다른 생성된 리스트의 id..
+    골프장: '강남300', 
+    전반: 'a1', 
+    후반: 'a2', 
+    날짜: '2022년 03월 24일',
+    시간: '오전 10시 30분'
+    }*/
     {
-      id: 100,
+      id: "0",
       골프장: "강남100",
       전반: "a1",
       후반: "a2",
@@ -12,22 +22,15 @@ const useStore = create((set) => ({
       시간: "오전 10시 30분",
     },
     {
-      id: 101,
+      id: "1",
       골프장: "강남200",
       전반: "a1",
       후반: "a2",
       날짜: "2022년 04월 24일",
       시간: "오전 10시 30분",
     },
-  ], //라운드정보 어레이
-  /*{
-    id: 0, 
-    골프장: '강남300', 
-    전반: 'a1', 
-    후반: 'a2', 
-    날짜: '2022년 03월 24일',
-    시간: '오전 10시 30분'
-  }*/
+  ],
+
   useGolfzone: "", //골프장명
   setGolfzone: (value) => set((state) => ({ useGolfzone: value })), //셋골프장명
   useCourse: { 전반: "", 후반: "" },
@@ -42,6 +45,10 @@ const useStore = create((set) => ({
     set((state) => {
       console.log("카운트증가");
       return { count: state.count + 1 };
+    }),
+  setId: (currentIdValue) =>
+    set((state) => {
+      state.currentId = currentIdValue;
     }),
   라운드추가: (golfzone, course1, course2, date, time) =>
     set((state) => {

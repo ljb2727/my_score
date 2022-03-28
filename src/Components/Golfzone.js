@@ -26,12 +26,9 @@ const filterOptions = (options, { inputValue }) => {
   });
 };
 function Golfzone() {
-  const { useGolfzone, setGolfzone, useCourse1, useCourse2 } = useStore();
+  const { useGolfzone, setGolfzone, setId } = useStore();
   const [open, setOpen] = useState(false);
   const [openDia, setDia] = useState(false);
-
-  //골프장정보
-  const [zone, setZone] = useState("");
 
   function blur() {
     setTimeout(() => {
@@ -68,7 +65,14 @@ function Golfzone() {
           <Autocomplete
             autoFocus
             open={open}
+            onChange={(event, newValue) => {
+              console.log(newValue);
+              if (newValue !== null) {
+                setId(newValue.id);
+              }
+            }}
             onInputChange={(_, value) => {
+              console.log(value);
               setGolfzone(value);
               if (value.length === 0) {
                 if (open) setOpen(false);
