@@ -3,7 +3,7 @@ import Hangul from "hangul-js";
 import { matchSorter } from "match-sorter";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
-import golfzone from "../Golfzone";
+import golfzone from "../Data/Golfzone";
 import PlaceOutlinedIcon from "@mui/icons-material/PlaceOutlined";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
@@ -59,8 +59,8 @@ function Golfzone() {
         fullScreen
         TransitionComponent={Transition}
       >
-        <AppBar position="static" color="primary">
-          <Toolbar>
+        <AppBar position="static" color="primary" elevation={0}>
+          <Toolbar variant="dense">
             <Typography variant="h6">골프장 검색</Typography>
           </Toolbar>
         </AppBar>

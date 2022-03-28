@@ -117,7 +117,7 @@ function Course({ label, id }) {
         onClose={handleClose}
         TransitionComponent={Transition}
       >
-        <AppBar sx={{ position: "relative" }}>
+        <AppBar sx={{ position: "relative" }} elevation={0}>
           <Toolbar>
             <Typography sx={{ flex: 1 }} variant="h6" component="div">
               {label}

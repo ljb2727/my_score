@@ -79,6 +79,7 @@ function Main() {
               color="primary"
               fullWidth
               onClick={createScore}
+              disableElevation
             >
               생성
             </Button>

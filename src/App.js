@@ -14,7 +14,7 @@ function App() {
         <Container maxWidth="sm">
           <Routes>
             <Route path="/" element={<Main />} />
-            <Route path="/modify" element={<Modify />} />
+            <Route path="/modify/:golfzone" element={<Modify />} />
           </Routes>
         </Container>
       </ThemeProvider>

@@ -53,7 +53,9 @@ function Item({ id, 골프장, 전반, 후반, 날짜, 시간 }) {
     <>
       <StyleItem sx={{ position: "relative" }}>
         <Menu parentId={id} />
-        <Typography variant="caption">{날짜}</Typography>
+        <Typography variant="caption">
+          {날짜} / {시간}
+        </Typography>
         <Typography variant="body1">{골프장}</Typography>
         <Typography variant="caption" color="text.secondary">
           {`전반:${전반}`}
