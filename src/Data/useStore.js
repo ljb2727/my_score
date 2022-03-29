@@ -65,7 +65,7 @@ const useStore = create((set) => ({
       state.카운트증가();
       //라운딩객체 생성
       const rounding = {
-        id: state.count,
+        id: String(state.count),
         골프장: golfzone,
         전반: course1,
         후반: course2,

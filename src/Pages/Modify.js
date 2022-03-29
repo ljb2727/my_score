@@ -16,8 +16,13 @@ import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
+import Slide from "@mui/material/Slide";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Mpicker from "../Components/Mpicker";
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 const Modify = (parentId) => {
   const navigate = useNavigate();
@@ -25,32 +30,62 @@ const Modify = (parentId) => {
   let { golfzone } = useParams();
   let target = info.filter((e) => String(e.id) === golfzone);
   const { id, 골프장, 전반, 후반, 날짜, 시간 } = target[0];
+  const [oldDate, setOldDate] = React.useState(); //최초 불러온 날짜와 시간 저장
 
   const [parentOpen, parentSetOpen] = React.useState(false);
-  const back = () => {
-    console.log("back");
-    navigate("/");
-  };
-
+  const [checkSave, setCheckSave] = React.useState(false);
   function showCal() {
     console.log("changeDate");
     parentSetOpen(true);
   }
 
   function parentChangePicker(changeDate) {
-    const storeDate = 날짜; //store에 저장된 날짜 2022년 03월 24일
-    //console.log(storeDate);
     //console.log(format(changeDate, "yyyy년 MM월 dd일"));
-    setDate(format(changeDate, "yyyy년 MM월 dd일"), golfzone);
+    setDate(format(changeDate, "yyyy년 MM월 dd일"), golfzone); //바뀐날짜와 아이디 넘김
+    console.log(`old date ${oldDate.날짜} / ${oldDate.시간}`);
+  }
+
+  React.useEffect(() => {
+    setOldDate({
+      날짜,
+      시간,
+    }); //기존날짜 저장
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const back = () => {
+    console.log("back");
+    //navigate("/");
+    //setCheckSave(true);
+    const { 날짜: 이전날짜, 시간: 이전시간 } = oldDate;
+    console.log(`old : ${이전날짜} / ${이전시간}`);
+    console.log(`new : ${날짜} / ${시간}`);
+    if (이전날짜 !== 날짜 || 이전시간 !== 시간) {
+      setCheckSave(true);
+    } else {
+      navigate("/");
+    }
+  };
+
+  function checkClose(boolean) {
+    setCheckSave(false);
+    boolean && navigate("/");
   }
 
   return (
     <>
+      {/* 달력컴포넌트 시작 */}
       <Mpicker
         parentOpen={parentOpen}
         parentSetOpen={parentSetOpen}
         parentChangePicker={parentChangePicker}
+        defaultValue={날짜
+          .replaceAll(" ", "")
+          .replace(/\D+/g, "-")
+          .substr(0, 10)}
       />
+      {/* 달력컴포넌트 끝 */}
+
       <Dialog open={true} fullScreen>
         <AppBar elevation={0}>
           <Toolbar variant="dense">
@@ -74,6 +109,32 @@ const Modify = (parentId) => {
         </AppBar>
         <Toolbar variant="dense" />
         <DialogContent sx={{ pt: 0 }}>
+          {/* 세이브 체크 s */}
+          <Dialog open={checkSave} TransitionComponent={Transition}>
+            <DialogContent>
+              <Typography variant="body1" color="initial">
+                수정된 라운드 정보를 저장하겠습니까?
+              </Typography>
+            </DialogContent>
+            <DialogActions>
+              <Button
+                onClick={() => checkClose(false)}
+                variant="contained"
+                color="common"
+              >
+                취소
+              </Button>
+              <Button
+                onClick={() => checkClose(true)}
+                variant="contained"
+                color="error"
+              >
+                확인
+              </Button>
+            </DialogActions>
+          </Dialog>
+          {/* 세이브 체크 e*/}
+
           <List>
             <ListItem disableGutters>
               <ListItemText
@@ -165,6 +226,7 @@ const Modify = (parentId) => {
             size="large"
             fullWidth
             disableElevation
+            onClick={checkClose}
           >
             확인
           </Button>

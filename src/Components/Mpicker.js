@@ -37,6 +37,7 @@ export default function CustomInput(props) {
       document.activeElement.blur();
     }, 0);
   };
+  console.log(props.defaultValue);
 
   return (
     <>
@@ -51,7 +52,7 @@ export default function CustomInput(props) {
           dateFormats={{ monthAndYear: "yyyy MM" }}
         >
           <StaticDatePicker
-            value={value}
+            value={props.defaultValue ? props.defaultValue : value}
             inputFormat="yyyy/MM/dd"
             showToolbar={false}
             okText="확인"
