@@ -17,12 +17,22 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function CustomInput() {
+export default function CustomInput(props) {
   const [value, setValue] = React.useState(new Date());
   let [open, setOpen] = React.useState(false);
 
+  React.useEffect(() => {
+    if (props.parentOpen == true) {
+      setOpen(true);
+    }
+  }, [props.parentOpen]);
+
   const handleClose = () => {
     setOpen(false);
+    //console.log(props.parentChangePicker);
+    if (!!props.parentSetOpen) {
+      props.parentSetOpen(false);
+    }
     setTimeout(() => {
       document.activeElement.blur();
     }, 0);
@@ -41,7 +51,6 @@ export default function CustomInput() {
           dateFormats={{ monthAndYear: "yyyy MM" }}
         >
           <StaticDatePicker
-            label="Custom input"
             value={value}
             inputFormat="yyyy/MM/dd"
             showToolbar={false}
@@ -51,6 +60,9 @@ export default function CustomInput() {
             TransitionComponent={Transition}
             onChange={(newValue) => {
               setValue(newValue);
+              if (!!props.parentChangePicker) {
+                props.parentChangePicker(newValue);
+              }
             }}
             renderInput={() => {}}
             showTodayButton="true"

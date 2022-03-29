@@ -1,6 +1,11 @@
 import Hangul from "hangul-js";
 const golfzone = [
   {
+    id: "rrr",
+    label: "rrr",
+    course: ["rrr1", "rrr2", "rrr3"],
+  },
+  {
     id: "gn300",
     label: "강남300",
     course: ["강남300a", "강남300b", "강남300c"],

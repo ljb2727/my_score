@@ -1,6 +1,7 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import useStore from "../Data/useStore";
+import { format } from "date-fns";
 import { useParams, useNavigate } from "react-router";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -12,30 +13,44 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Button from "@mui/material/Button";
-
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import Mpicker from "../Components/Mpicker";
 
 const Modify = (parentId) => {
   const navigate = useNavigate();
-  const { info } = useStore();
+  const { info, setDate } = useStore();
   let { golfzone } = useParams();
   let target = info.filter((e) => String(e.id) === golfzone);
   const { id, 골프장, 전반, 후반, 날짜, 시간 } = target[0];
 
+  const [parentOpen, parentSetOpen] = React.useState(false);
   const back = () => {
     console.log("back");
     navigate("/");
   };
 
-  function changeDate() {
+  function showCal() {
     console.log("changeDate");
+    parentSetOpen(true);
+  }
+
+  function parentChangePicker(changeDate) {
+    const storeDate = 날짜; //store에 저장된 날짜 2022년 03월 24일
+    //console.log(storeDate);
+    //console.log(format(changeDate, "yyyy년 MM월 dd일"));
+    setDate(format(changeDate, "yyyy년 MM월 dd일"), golfzone);
   }
 
   return (
     <>
+      <Mpicker
+        parentOpen={parentOpen}
+        parentSetOpen={parentSetOpen}
+        parentChangePicker={parentChangePicker}
+      />
       <Dialog open={true} fullScreen>
         <AppBar elevation={0}>
           <Toolbar variant="dense">
@@ -117,9 +132,10 @@ const Modify = (parentId) => {
                 }
               />
               <ListItemIcon
-                onClick={changeDate}
+                onClick={showCal}
                 sx={{ color: "secondary", marginRight: "-0.5em" }}
               >
+                {/* {format(value, "yyyy년 MM월 dd일")} */}
                 {날짜}
                 <ChevronRightIcon />
               </ListItemIcon>

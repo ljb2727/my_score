@@ -14,7 +14,7 @@ const useStore = create((set) => ({
     시간: '오전 10시 30분'
     }*/
     {
-      id: "0",
+      id: "2",
       골프장: "강남100",
       전반: "a1",
       후반: "a2",
@@ -35,6 +35,15 @@ const useStore = create((set) => ({
   setGolfzone: (value) => set((state) => ({ useGolfzone: value })), //셋골프장명
   useCourse: { 전반: "", 후반: "" },
   setCourse: (value) => set((state) => ({ useCourse: value })),
+
+  setDate: (date, id) =>
+    set((state) => {
+      console.log(`date : ${date} / id : ${id}`);
+      const findIndex = state.info.findIndex((e) => e.id === id);
+      const copyArray = [...state.info];
+      copyArray[findIndex] = { ...copyArray[findIndex], 날짜: date };
+      return { info: copyArray };
+    }),
 
   resetStore: () =>
     set((state) => {

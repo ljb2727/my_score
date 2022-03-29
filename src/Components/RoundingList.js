@@ -9,6 +9,7 @@ import Button from "@mui/material/Button";
 
 const RoundingList = () => {
   const { info } = useStore();
+  console.log(info);
   // const info = [
   //   {
   //     id: 0,
