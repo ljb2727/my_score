@@ -13,7 +13,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import Slide from "@mui/material/Slide";
 import Button from "@mui/material/Button";
-import { useNavigate, useParams } from "react-router";
+import { useNavigate } from "react-router";
 
 const options = [
   {

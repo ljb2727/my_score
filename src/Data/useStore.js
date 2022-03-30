@@ -44,6 +44,17 @@ const useStore = create((set) => ({
       copyArray[findIndex] = { ...copyArray[findIndex], 날짜: date };
       return { info: copyArray };
     }),
+  storeSetTime: (time, id) =>
+    set((state) => {
+      console.log(time);
+      const findIndex = state.info.findIndex((e) => e.id === id);
+      const copyArray = [...state.info];
+      copyArray[findIndex] = {
+        ...copyArray[findIndex],
+        시간: `${time.오전오후} ${time.시} ${time.분}`,
+      };
+      return { info: copyArray };
+    }),
 
   resetStore: () =>
     set((state) => {

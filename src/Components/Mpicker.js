@@ -3,14 +3,11 @@ import { ko } from "date-fns/esm/locale";
 import { format } from "date-fns";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
-
 import StaticDatePicker from "@mui/lab/StaticDatePicker";
 import TextField from "@mui/material/TextField";
 import Slide from "@mui/material/Slide";
-
 import Dialog from "@mui/material/Dialog";
 import Button from "@mui/material/Button";
-
 import "../Date.scss";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -37,7 +34,6 @@ export default function CustomInput(props) {
       document.activeElement.blur();
     }, 0);
   };
-  console.log(props.defaultValue);
 
   return (
     <>

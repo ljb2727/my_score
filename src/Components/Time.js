@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
@@ -17,7 +17,11 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function Time() {
+export default function Time(props) {
+  useEffect(() => {
+    props.parentTimeOpen && setOpen(true);
+  }, [props.parentTimeOpen]);
+
   const [open, setOpen] = useState(false);
   const [time, setTime] = useState({
     오전오후: "오전",
@@ -31,15 +35,24 @@ export default function Time() {
     const change = { ...time };
     change[name] = val;
     setTime(change);
+
+    if (!!props.parentChangeTime) {
+      props.parentChangeTime(change);
+    }
   };
 
   function handleClose() {
     setOpen(false);
-    setTimeout(function () {
+    if (!!props.parentSetTimeOpen) {
+      props.parentSetTimeOpen(false);
+    }
+    setTimeout(() => {
       document.activeElement.blur();
     }, 0);
+    console.log("닫기");
   }
 
+  //시 분 설정
   function getTime(num) {
     let time = [];
     if (num === 60) {

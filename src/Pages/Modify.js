@@ -27,13 +27,14 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 const Modify = (parentId) => {
   const navigate = useNavigate();
-  const { info, setDate } = useStore();
+  const { info, setDate, storeSetTime } = useStore();
   let { golfzone } = useParams();
   let target = info.filter((e) => String(e.id) === golfzone);
   const { id, 골프장, 전반, 후반, 날짜, 시간 } = target[0];
   const [oldDate, setOldDate] = React.useState(); //최초 불러온 날짜와 시간 저장
 
-  const [parentOpen, parentSetOpen] = React.useState(false);
+  const [parentOpen, parentSetOpen] = React.useState(false); //날짜모달창 세팅
+  const [parentTimeOpen, parentSetTimeOpen] = React.useState(false); //시간모달창 세팅
   const [checkSave, setCheckSave] = React.useState(false);
   function showCal() {
     console.log("changeDate");
@@ -44,6 +45,10 @@ const Modify = (parentId) => {
     //console.log(format(changeDate, "yyyy년 MM월 dd일"));
     setDate(format(changeDate, "yyyy년 MM월 dd일"), golfzone); //바뀐날짜와 아이디 넘김
     console.log(`old date ${oldDate.날짜} / ${oldDate.시간}`);
+  }
+
+  function parentChangeTime(changeTime) {
+    storeSetTime(changeTime, golfzone);
   }
 
   React.useEffect(() => {
@@ -76,6 +81,7 @@ const Modify = (parentId) => {
   // 시간 수정
   function showTime() {
     console.log("showtime");
+    parentSetTimeOpen(true);
   }
 
   return (
@@ -92,7 +98,11 @@ const Modify = (parentId) => {
       />
       {/* 달력컴포넌트 끝 */}
       {/* 시간컴포넌트 시작 */}
-      <Time parentOpen={parentOpen} />
+      <Time
+        parentTimeOpen={parentTimeOpen}
+        parentSetTimeOpen={parentSetTimeOpen}
+        parentChangeTime={parentChangeTime}
+      />
       {/* 시간컴포넌트 끝 */}
       <Dialog open={true} fullScreen>
         <AppBar elevation={0}>
