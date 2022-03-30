@@ -86,7 +86,6 @@ function Course({ label, id }) {
   };
 
   //setdefaultCourse();
-  //;
 
   React.useEffect(() => {
     console.log("골프장 변경시 코스 리셋");

@@ -19,6 +19,7 @@ import DialogActions from "@mui/material/DialogActions";
 import Slide from "@mui/material/Slide";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Mpicker from "../Components/Mpicker";
+import Time from "../Components/Time";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -72,6 +73,11 @@ const Modify = (parentId) => {
     boolean && navigate("/");
   }
 
+  // 시간 수정
+  function showTime() {
+    console.log("showtime");
+  }
+
   return (
     <>
       {/* 달력컴포넌트 시작 */}
@@ -85,7 +91,9 @@ const Modify = (parentId) => {
           .substr(0, 10)}
       />
       {/* 달력컴포넌트 끝 */}
-
+      {/* 시간컴포넌트 시작 */}
+      <Time parentOpen={parentOpen} />
+      {/* 시간컴포넌트 끝 */}
       <Dialog open={true} fullScreen>
         <AppBar elevation={0}>
           <Toolbar variant="dense">
@@ -212,7 +220,10 @@ const Modify = (parentId) => {
                   </Typography>
                 }
               />
-              <ListItemIcon sx={{ color: "secondary", marginRight: "-0.5em" }}>
+              <ListItemIcon
+                onClick={showTime}
+                sx={{ color: "secondary", marginRight: "-0.5em" }}
+              >
                 {시간}
                 <ChevronRightIcon />
               </ListItemIcon>
