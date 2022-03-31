@@ -12,6 +12,7 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Slide from "@mui/material/Slide";
+import useStore from "../Data/useStore"; //useStore
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -22,11 +23,14 @@ export default function Time(props) {
     props.parentTimeOpen && setOpen(true);
   }, [props.parentTimeOpen]);
 
+  const [hasDefault, setDefault] = useState(!!props.defaultValue);
+  console.log(hasDefault);
+
   const [open, setOpen] = useState(false);
   const [time, setTime] = useState({
-    오전오후: "오전",
-    시: "10시",
-    분: "30분",
+    오전오후: hasDefault ? props.defaultValue.split(" ")[0] : "오전",
+    시: hasDefault ? props.defaultValue.split(" ")[1] : "10시",
+    분: hasDefault ? props.defaultValue.split(" ")[2] : "30분",
   });
 
   const handleChange = (event) => {

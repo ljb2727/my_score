@@ -1,6 +1,6 @@
 import React from "react";
 import Box from "@mui/material/Box";
-import useStore from "../Data/useStore";
+import useStore from "../Data/useStore"; //useStore
 import { format } from "date-fns";
 import { useParams, useNavigate } from "react-router";
 import AppBar from "@mui/material/AppBar";
@@ -49,6 +49,7 @@ const Modify = (parentId) => {
 
   function parentChangeTime(changeTime) {
     storeSetTime(changeTime, golfzone);
+    console.log("parent change");
   }
 
   React.useEffect(() => {
@@ -102,6 +103,7 @@ const Modify = (parentId) => {
         parentTimeOpen={parentTimeOpen}
         parentSetTimeOpen={parentSetTimeOpen}
         parentChangeTime={parentChangeTime}
+        defaultValue={시간}
       />
       {/* 시간컴포넌트 끝 */}
       <Dialog open={true} fullScreen>
