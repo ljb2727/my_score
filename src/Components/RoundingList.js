@@ -3,13 +3,12 @@ import useStore from "../Data/useStore";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
-
 import Menu from "../Common/Menu";
 import Button from "@mui/material/Button";
+import { useNavigate } from "react-router";
 
 const RoundingList = () => {
   const { info } = useStore();
-  console.log(info);
   // const info = [
   //   {
   //     id: 0,
@@ -20,10 +19,11 @@ const RoundingList = () => {
   //     시간: "오전 10시 30분",
   //   },
   // ];
+
   return (
     <>
-      {info.map((item) => {
-        const { id, 골프장, 전반, 후반, 날짜, 시간 } = item;
+      {info.map((value) => {
+        const { id, 골프장, 전반, 후반, 날짜, 시간 } = value;
 
         return (
           <Item
@@ -50,27 +50,33 @@ const StyleItem = styled(Paper)(({ theme }) => ({
 }));
 
 function Item({ id, 골프장, 전반, 후반, 날짜, 시간 }) {
+  let navigate = useNavigate();
+  function rounding(event) {
+    navigate(`/score/${id}`);
+  }
   return (
     <>
       <StyleItem sx={{ position: "relative" }}>
         <Menu parentId={id} />
-        <Typography variant="caption">
-          {날짜} / {시간}
-        </Typography>
-        <Typography variant="body1">{골프장}</Typography>
-        <Typography variant="caption" color="text.secondary">
-          {`전반:${전반}`}
-          {후반.length !== 0 && ` - 후반:${후반}`}
-        </Typography>
-        <Button
-          variant="contained"
-          size="small"
-          color="secondary"
-          sx={{ position: "absolute", right: "5px", bottom: "5px" }}
-          disableElevation
-        >
-          입력{id}
-        </Button>
+        <div onClick={(event) => rounding(event)}>
+          <Typography variant="caption">
+            {날짜} / {시간}
+          </Typography>
+          <Typography variant="body1">{골프장}</Typography>
+          <Typography variant="caption" color="text.secondary">
+            {`전반:${전반}`}
+            {후반.length !== 0 && ` - 후반:${후반}`}
+          </Typography>
+          <Button
+            variant="contained"
+            size="small"
+            color="secondary"
+            sx={{ position: "absolute", right: "5px", bottom: "5px" }}
+            disableElevation
+          >
+            입력{id}
+          </Button>
+        </div>
       </StyleItem>
     </>
   );
