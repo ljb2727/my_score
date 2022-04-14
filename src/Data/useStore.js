@@ -15,19 +15,63 @@ const useStore = create((set) => ({
     }*/
     {
       id: "2",
-      골프장: "강남100",
-      전반: "a1",
-      후반: "a2",
+      골프장: "강남300",
+      전반: "강남300a",
+      후반: "강남300b",
       날짜: "2022년 03월 24일",
       시간: "오전 01시 18분", //형식에 맞게 저장
+      inScore: [
+        { score: 0, put: 1 },
+        { score: -2, put: 1 },
+        { score: -1, put: 1 },
+        { score: 0, put: 1 },
+        { score: 4, put: 1 },
+        { score: 0, put: 1 },
+        { score: null, put: null },
+        { score: null, put: null },
+        { score: null, put: null },
+      ],
+      outScore: [
+        { score: 4, put: 1 },
+        { score: 3, put: 1 },
+        { score: 2, put: 1 },
+        { score: 1, put: 1 },
+        { score: 4, put: 1 },
+        { score: 0, put: 1 },
+        { score: 1, put: 1 },
+        { score: 2, put: 2 },
+        { score: null, put: null },
+      ],
     },
     {
       id: "1",
-      골프장: "강남200",
-      전반: "a1",
-      후반: "a2",
+      골프장: "강촌명문",
+      전반: "강촌명문a",
+      후반: "강촌명문b",
       날짜: "2022년 04월 24일",
       시간: "오전 10시 30분", //형식에 맞게 저장
+      inScore: [
+        { score: 4, put: 1 },
+        { score: -2, put: 1 },
+        { score: -1, put: 1 },
+        { score: 0, put: 1 },
+        { score: 4, put: 1 },
+        { score: 0, put: 1 },
+        { score: null, put: null },
+        { score: null, put: null },
+        { score: null, put: null },
+      ],
+      outScore: [
+        { score: 0, put: 1 },
+        { score: -2, put: 1 },
+        { score: -1, put: 1 },
+        { score: 0, put: 1 },
+        { score: 4, put: 1 },
+        { score: 0, put: 1 },
+        { score: null, put: null },
+        { score: null, put: null },
+        { score: null, put: null },
+      ],
     },
   ],
 
@@ -72,6 +116,18 @@ const useStore = create((set) => ({
     }),
   라운드추가: (golfzone, course1, course2, date, time) =>
     set((state) => {
+      const inScore = [
+        { score: null, put: null },
+        { score: null, put: null },
+        { score: null, put: null },
+        { score: null, put: null },
+        { score: null, put: null },
+        { score: null, put: null },
+        { score: null, put: null },
+        { score: null, put: null },
+        { score: null, put: null },
+      ];
+      const outScore = [...inScore];
       //카운트 증가
       state.카운트증가();
       //라운딩객체 생성
@@ -82,6 +138,8 @@ const useStore = create((set) => ({
         후반: course2,
         날짜: date,
         시간: time,
+        inScore,
+        outScore,
       };
       console.log("라운드추가");
       return { info: [...state.info, rounding] };
