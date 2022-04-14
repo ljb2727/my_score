@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -7,59 +7,75 @@ import Box from "@mui/material/Box";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import IconButton from "@mui/material/IconButton";
 import { useParams, useNavigate } from "react-router";
-import { Card, CardMedia, CardContent, Button } from "@mui/material";
+import { Card, CardMedia, CardContent } from "@mui/material";
+
+import ScorePut from "../Components/SetScore";
 
 import useStore from "../Data/useStore";
 import holeinfo from "../Data/Golfzone";
 
-function HoleInfo({ hole, par, meter, inScore, outScore, inCourse }) {
-  return (
-    <Box
-      component={"li"}
-      sx={{
-        p: 1,
-        mt: hole === 0 ? 0 : 1,
-        border: "1px solid #f1f1f1",
-        display: "flex",
-        justifyContent: "space-between",
-      }}
-    >
-      <Box sx={{ display: "flex", alignItems: "baseline" }}>
-        <Typography
-          variant="subtitle1"
-          style={{ fontWeight: "bold", paddingRight: "10px" }}
-        >
-          {hole + 1}H
-        </Typography>
-        <Typography sx={{ fontSize: "12px" }}>
-          파{par} | {meter}m
-        </Typography>
-      </Box>
-      <Box sx={{ display: "flex;" }}>
-        <div style={{ width: "36px", marginLeft: "10px", textAlign: "center" }}>
-          {inCourse === true
-            ? typeof inScore[hole].score == "number"
-              ? inScore[hole].score
-              : "-"
-            : typeof outScore[hole].score == "number"
-            ? outScore[hole].score
-            : "-"}
-        </div>
-        <div style={{ width: "36px", marginLeft: "10px", textAlign: "center" }}>
-          {inCourse === true
-            ? typeof inScore[hole].put == "number"
-              ? inScore[hole].put
-              : "-"
-            : typeof outScore[hole].put == "number"
-            ? outScore[hole].put
-            : "-"}
-        </div>
-      </Box>
-    </Box>
-  );
-}
-
 function Score() {
+  const [target, setTarget] = useState({});
+  const setScore = (inCourse, hole, par, meter) => {
+    console.log(inCourse, hole, par, meter); //전반인지, 홀넘버
+    setTarget({ hole: String(hole), par: String(par), meter: String(meter) });
+    setModalOpen(true);
+  };
+
+  const HoleInfo = ({ hole, par, meter, inScore, outScore, inCourse }) => {
+    return (
+      <>
+        <Box
+          component={"li"}
+          sx={{
+            p: 1,
+            mt: hole === 0 ? 0 : 1,
+            border: "1px solid #f1f1f1",
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+          onClick={() => setScore(inCourse, hole, par, meter)}
+        >
+          <Box sx={{ display: "flex", alignItems: "baseline" }}>
+            <Typography
+              variant="subtitle1"
+              style={{ fontWeight: "bold", paddingRight: "10px" }}
+            >
+              {hole + 1}H
+            </Typography>
+            <Typography sx={{ fontSize: "12px" }}>
+              파{par} | {meter}m
+            </Typography>
+          </Box>
+          <Box sx={{ display: "flex;" }}>
+            <div
+              style={{ width: "36px", marginLeft: "10px", textAlign: "center" }}
+            >
+              {inCourse === true
+                ? typeof inScore[hole].score == "number"
+                  ? inScore[hole].score
+                  : "-"
+                : typeof outScore[hole].score == "number"
+                ? outScore[hole].score
+                : "-"}
+            </div>
+            <div
+              style={{ width: "36px", marginLeft: "10px", textAlign: "center" }}
+            >
+              {inCourse === true
+                ? typeof inScore[hole].put == "number"
+                  ? inScore[hole].put
+                  : "-"
+                : typeof outScore[hole].put == "number"
+                ? outScore[hole].put
+                : "-"}
+            </div>
+          </Box>
+        </Box>
+      </>
+    );
+  };
+
   const navigate = useNavigate();
   const { golfzone } = useParams();
   const { info } = useStore();
@@ -69,15 +85,19 @@ function Score() {
 
   const findGolfzone = holeinfo.findIndex((e) => e.label === 골프장);
   //console.log(inScore);
-
   const back = () => {
     navigate("/");
   };
-
   const imgUrl = "/image/sample.png";
+  const [modalOpen, setModalOpen] = useState(false);
 
   return (
     <>
+      <ScorePut
+        modalOpen={modalOpen}
+        setModalOpen={setModalOpen}
+        target={target}
+      />
       <Dialog open={true} fullScreen>
         <AppBar elevation={0}>
           <Toolbar variant="dense">
@@ -124,7 +144,7 @@ function Score() {
                 }}
               >
                 <Box>
-                  <strong style={{ paddingRight: "5px" }}>인</strong>
+                  <strong style={{ paddingRight: "5px" }}>{전반}</strong>
                   <span>전반</span>
                 </Box>
                 <Box>
@@ -159,7 +179,7 @@ function Score() {
                       meter={e.meter}
                       inScore={inScore}
                       outScore={outScore}
-                      inCourse={true}
+                      inCourse={true} //전반만 진행
                     />
                   );
                 })}
@@ -176,7 +196,7 @@ function Score() {
                 }}
               >
                 <Box>
-                  <strong style={{ paddingRight: "5px" }}>아웃</strong>
+                  <strong style={{ paddingRight: "5px" }}>{후반}</strong>
                   <span>후반</span>
                 </Box>
                 <Box>
