@@ -9,16 +9,25 @@ import IconButton from "@mui/material/IconButton";
 import { useParams, useNavigate } from "react-router";
 import { Card, CardMedia, CardContent } from "@mui/material";
 
-import ScorePut from "../Components/SetScore";
+import ScorePut from "../Components/SetScore"; //점수 설정 모달
 
 import useStore from "../Data/useStore";
 import holeinfo from "../Data/Golfzone";
 
 function Score() {
   const [target, setTarget] = useState({});
-  const setScore = (inCourse, hole, par, meter) => {
-    console.log(inCourse, hole, par, meter); //전반인지, 홀넘버
-    setTarget({ hole: String(hole), par: String(par), meter: String(meter) });
+  const setScore = (inCourse, hole, par, meter, id, 골프장, 전반, 후반) => {
+    console.log(inCourse, hole, par, meter, id, 골프장, 전반, 후반); //전반인지, 홀넘버
+    setTarget({
+      inCourse,
+      hole: String(hole),
+      par: String(par),
+      meter: String(meter),
+      id,
+      골프장,
+      전반,
+      후반,
+    });
     setModalOpen(true);
   };
 
@@ -34,7 +43,9 @@ function Score() {
             display: "flex",
             justifyContent: "space-between",
           }}
-          onClick={() => setScore(inCourse, hole, par, meter)}
+          onClick={() =>
+            setScore(inCourse, hole, par, meter, id, 골프장, 전반, 후반)
+          }
         >
           <Box sx={{ display: "flex", alignItems: "baseline" }}>
             <Typography
@@ -49,6 +60,9 @@ function Score() {
           </Box>
           <Box sx={{ display: "flex;" }}>
             <div
+              id={
+                inCourse ? `score${Number(hole)}` : `score${Number(hole) + 9}`
+              }
               style={{ width: "36px", marginLeft: "10px", textAlign: "center" }}
             >
               {inCourse === true
@@ -60,6 +74,7 @@ function Score() {
                 : "-"}
             </div>
             <div
+              id={inCourse ? `put${Number(hole)}` : `put${Number(hole) + 9}`}
               style={{ width: "36px", marginLeft: "10px", textAlign: "center" }}
             >
               {inCourse === true
@@ -123,13 +138,49 @@ function Score() {
 
         <Box>
           <Card sx={{ borderRadius: "0" }}>
-            <CardMedia image={imgUrl} sx={{ height: "46vw" }}>
-              <CardContent>
+            <CardMedia image={imgUrl}>
+              <CardContent
+                sx={{
+                  height: "46vw",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                }}
+              >
                 <Typography color="common.white">
                   {날짜} / {시간} <br />
                   전반 : {전반} <br />
                   {!!후반 && `후반 : ${후반}`}
                 </Typography>
+                <Box
+                  color="common.white"
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "flex-end",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      textAlign: "center",
+                    }}
+                  >
+                    <span>총 스코어</span>
+                    <strong>0</strong>
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      textAlign: "center",
+                    }}
+                  >
+                    <span>퍼팅수</span>
+                    <strong>0</strong>
+                  </div>
+                </Box>
               </CardContent>
             </CardMedia>
           </Card>
@@ -170,7 +221,11 @@ function Score() {
                 </Box>
               </Box>
               <ul style={{ margin: 0, padding: 0 }}>
-                {holeinfo[findGolfzone].in.map((e, i) => {
+                {holeinfo[findGolfzone].courseInfo[
+                  holeinfo[findGolfzone].courseInfo.findIndex(
+                    (e) => e.name === `${전반}`
+                  )
+                ].hole.map((e, i) => {
                   return (
                     <HoleInfo
                       key={i}
@@ -179,7 +234,7 @@ function Score() {
                       meter={e.meter}
                       inScore={inScore}
                       outScore={outScore}
-                      inCourse={true} //전반만 진행
+                      inCourse={true} //전반일때 true
                     />
                   );
                 })}
@@ -207,19 +262,24 @@ function Score() {
                 </Box>
               </Box>
               <ul style={{ margin: 0, padding: 0 }}>
-                {holeinfo[findGolfzone].in.map((e, i) => {
-                  return (
-                    <HoleInfo
-                      key={i}
-                      hole={i}
-                      par={e.par}
-                      meter={e.meter}
-                      inScore={inScore}
-                      outScore={outScore}
-                      inCourse={false}
-                    />
-                  );
-                })}
+                {!!`${후반}` &&
+                  holeinfo[findGolfzone].courseInfo[
+                    holeinfo[findGolfzone].courseInfo.findIndex(
+                      (e) => e.name === `${후반}`
+                    )
+                  ].hole.map((e, i) => {
+                    return (
+                      <HoleInfo
+                        key={i}
+                        hole={i}
+                        par={e.par}
+                        meter={e.meter}
+                        inScore={inScore}
+                        outScore={outScore}
+                        inCourse={false} //전반일때 true
+                      />
+                    );
+                  })}
               </ul>
             </Box>
           </Box>

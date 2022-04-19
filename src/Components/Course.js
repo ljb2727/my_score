@@ -30,6 +30,7 @@ function Course({ label, id }) {
   });
 
   const [defaultCourse, setdefaultCourse] = React.useState();
+  console.log(defaultCourse);
   // 토스트 설정_e
 
   const [open, setOpen] = useState(false);
@@ -90,7 +91,14 @@ function Course({ label, id }) {
   React.useEffect(() => {
     console.log("골프장 변경시 코스 리셋");
     if (currentId !== null) {
-      setdefaultCourse(course_list.filter((e) => e.id === currentId)[0].course);
+      const array = [];
+      console.log(
+        course_list
+          .filter((e) => e.id === currentId)[0]
+          .courseInfo.map((e) => array.push(e.name))
+      );
+      setdefaultCourse(array);
+
       setCourse({ 전반: "", 후반: "" });
     }
   }, [currentId]);
@@ -162,6 +170,7 @@ function Golfcourse({ handleChange, value, id, label, defaultCourse }) {
       <RadioGroup name={label} onChange={handleChange} value={radioValue}>
         <List>
           {defaultCourse.map((e, i) => {
+            console.log(e);
             return (
               <div key={i}>
                 {i !== 0 && <Divider />}

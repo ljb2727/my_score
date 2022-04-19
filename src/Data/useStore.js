@@ -16,20 +16,20 @@ const useStore = create((set) => ({
     {
       id: "2",
       골프장: "강남300",
-      전반: "강남300a",
-      후반: "강남300b",
+      전반: "new강남300a",
+      후반: "new강남300b",
       날짜: "2022년 03월 24일",
       시간: "오전 01시 18분", //형식에 맞게 저장
       inScore: [
-        { score: 0, put: 1 },
-        { score: -2, put: 1 },
-        { score: -1, put: 1 },
-        { score: 0, put: 1 },
-        { score: 4, put: 1 },
-        { score: 0, put: 1 },
-        { score: null, put: null },
-        { score: null, put: null },
-        { score: null, put: null },
+        { score: 0, put: 2 }, //1
+        { score: -2, put: 1 }, //2
+        { score: -1, put: 1 }, //3
+        { score: 0, put: 1 }, //4
+        { score: 4, put: 1 }, //5
+        { score: 0, put: 1 }, //6
+        { score: null, put: null }, //7
+        { score: null, put: null }, //8
+        { score: null, put: null }, //9
       ],
       outScore: [
         { score: 4, put: 1 },
@@ -97,6 +97,102 @@ const useStore = create((set) => ({
         ...copyArray[findIndex],
         시간: `${time.오전오후} ${time.시} ${time.분}`,
       };
+      return { info: copyArray };
+    }),
+
+  기본스코어: (id, inCourse, hole) => {
+    set((state) => {
+      const findIndex = state.info.findIndex((e) => e.id === id);
+      const copyArray = [...state.info];
+      const copyInScore = copyArray[findIndex].inScore;
+      const copyOutScore = copyArray[findIndex].outScore;
+      if (inCourse) {
+        console.log("in");
+        if (copyInScore[hole].score === null) {
+          copyInScore[hole] = {
+            score: Number(0),
+            put: copyInScore[hole].put,
+          };
+        }
+
+        if (copyInScore[hole].put === null) {
+          copyInScore[hole] = {
+            score: copyInScore[hole].score,
+            put: Number(2),
+          };
+        }
+
+        copyArray[findIndex] = {
+          ...copyArray[findIndex],
+          inScore: copyInScore,
+        };
+      } else {
+        console.log("out");
+        if (copyOutScore[hole].score === null) {
+          copyOutScore[hole] = {
+            score: Number(0),
+            put: copyOutScore[hole].put,
+          };
+        }
+
+        if (copyOutScore[hole].put === null) {
+          copyOutScore[hole] = {
+            score: copyOutScore[hole].score,
+            put: Number(2),
+          };
+        }
+
+        copyArray[findIndex] = {
+          ...copyArray[findIndex],
+          outScore: copyOutScore,
+        };
+      }
+    });
+  },
+
+  스코어수정: (findIndex, inCourse, hole, name, val) =>
+    set((state) => {
+      console.log(findIndex, inCourse, hole, name, val);
+      const copyArray = [...state.info];
+
+      const copyInScore = copyArray[findIndex].inScore;
+      const copyOutScore = copyArray[findIndex].outScore;
+
+      if (inCourse) {
+        if (name === "스코어") {
+          copyInScore[hole] = {
+            score: Number(val),
+            put: copyInScore[hole].put,
+          };
+        } else if (name === "퍼팅수") {
+          copyInScore[hole] = {
+            score: copyInScore[hole].score,
+            put: Number(val),
+          };
+        }
+
+        copyArray[findIndex] = {
+          ...copyArray[findIndex],
+          inScore: copyInScore,
+        };
+      } else {
+        if (name === "스코어") {
+          copyOutScore[hole] = {
+            score: Number(val),
+            put: copyOutScore[hole].put,
+          };
+        } else if (name === "퍼팅수") {
+          copyOutScore[hole] = {
+            score: copyOutScore[hole].score,
+            put: Number(val),
+          };
+        }
+
+        copyArray[findIndex] = {
+          ...copyArray[findIndex],
+          outScore: copyOutScore,
+        };
+      }
       return { info: copyArray };
     }),
 
