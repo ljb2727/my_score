@@ -1,8 +1,10 @@
 import create from "zustand";
+import Golfzone from "./Golfzone";
 
 const useStore = create((set) => ({
   count: 999, //아이디부여
   currentId: null, //현재 선택된 골프장의 코스 정보를 알기위한 임시 아이디
+  score: { 총스코어: 0, 총퍼팅수: 0 },
   info: [
     //라운드정보 어레이
     /*{
@@ -20,10 +22,12 @@ const useStore = create((set) => ({
       후반: "new강남300b",
       날짜: "2022년 03월 24일",
       시간: "오전 01시 18분", //형식에 맞게 저장
+      half: false,
+      sum: 0,
       inScore: [
         { score: 0, put: 2 }, //1
-        { score: -2, put: 1 }, //2
-        { score: -1, put: 1 }, //3
+        { score: 1, put: 1 }, //2
+        { score: 2, put: 1 }, //3
         { score: 0, put: 1 }, //4
         { score: 4, put: 1 }, //5
         { score: 0, put: 1 }, //6
@@ -32,14 +36,14 @@ const useStore = create((set) => ({
         { score: null, put: null }, //9
       ],
       outScore: [
-        { score: 4, put: 1 },
-        { score: 3, put: 1 },
-        { score: 2, put: 1 },
-        { score: 1, put: 1 },
-        { score: 4, put: 1 },
         { score: 0, put: 1 },
-        { score: 1, put: 1 },
-        { score: 2, put: 2 },
+        { score: 0, put: 1 },
+        { score: 0, put: 1 },
+        { score: 0, put: 1 },
+        { score: 0, put: 1 },
+        { score: 0, put: 1 },
+        { score: 0, put: 1 },
+        { score: 0, put: 2 },
         { score: null, put: null },
       ],
     },
@@ -50,6 +54,8 @@ const useStore = create((set) => ({
       후반: "강촌명문b",
       날짜: "2022년 04월 24일",
       시간: "오전 10시 30분", //형식에 맞게 저장
+      half: false,
+      sum: 0,
       inScore: [
         { score: 4, put: 1 },
         { score: -2, put: 1 },
@@ -107,7 +113,7 @@ const useStore = create((set) => ({
       const copyInScore = copyArray[findIndex].inScore;
       const copyOutScore = copyArray[findIndex].outScore;
       if (inCourse) {
-        console.log("in");
+        //console.log("in");
         if (copyInScore[hole].score === null) {
           copyInScore[hole] = {
             score: Number(0),
@@ -127,7 +133,7 @@ const useStore = create((set) => ({
           inScore: copyInScore,
         };
       } else {
-        console.log("out");
+        //console.log("out");
         if (copyOutScore[hole].score === null) {
           copyOutScore[hole] = {
             score: Number(0),
@@ -147,6 +153,7 @@ const useStore = create((set) => ({
           outScore: copyOutScore,
         };
       }
+      return { info: copyArray };
     });
   },
 
@@ -236,8 +243,10 @@ const useStore = create((set) => ({
         시간: time,
         inScore,
         outScore,
+        half: course2.length === 0 ? true : false,
       };
       console.log("라운드추가");
+
       return { info: [...state.info, rounding] };
     }),
   라운드삭제: (parentId) =>
@@ -245,6 +254,58 @@ const useStore = create((set) => ({
       console.log("라운드삭제");
       const filter = state.info.filter((e) => e.id !== parentId);
       return { info: filter };
+    }),
+  총스코어: (findIndex, id, 전반, 후반) =>
+    set((state) => {
+      const inScore = state.info[findIndex].inScore;
+      const outScore = state.info[findIndex].outScore;
+      const isHalf = state.info[findIndex].half;
+      let sumScore =
+        inScore.reduce((acc, cur, i) => {
+          return acc + cur.score;
+        }, 0) +
+        outScore.reduce((acc, cur, i) => {
+          return acc + cur.score;
+        }, 0);
+
+      let sumPut =
+        inScore.reduce((acc, cur, i) => {
+          return acc + cur.put;
+        }, 0) +
+        outScore.reduce((acc, cur, i) => {
+          return acc + cur.put;
+        }, 0);
+
+      state.score = { 총스코어: sumScore, 총퍼팅수: sumPut };
+
+      //진행홀 계산
+      const firstArray = inScore.map((e, i) => {
+        if (e.score !== null) {
+          return i;
+        } else {
+          return null;
+        }
+      });
+      const idx = Golfzone.findIndex((e) => e.label == id);
+      const courseInfo = Golfzone[idx].courseInfo; //홀정보
+      const firstHole = courseInfo.find((e) => e.name == 전반).hole;
+      console.log(firstArray);
+      console.log(id);
+      console.log(firstHole);
+      console.log(전반, 후반);
+
+      const firstSum = firstArray
+        .map((e) => {
+          let sum = 0;
+          if (e !== null) {
+            console.log(typeof firstHole[e].par);
+            sum += firstHole[e].par;
+          }
+          return sum;
+        })
+        .reduce((a, b) => a + b);
+      console.log(firstSum);
+      state.info[findIndex].sum = firstSum + sumScore;
     }),
 }));
 

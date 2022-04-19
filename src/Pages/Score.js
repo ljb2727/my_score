@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -93,18 +93,23 @@ function Score() {
 
   const navigate = useNavigate();
   const { golfzone } = useParams();
-  const { info } = useStore();
+  const { info, 총스코어, score } = useStore();
+
   const findIndex = info.findIndex((e) => e.id === golfzone);
-  const { id, 골프장, 전반, 후반, 날짜, 시간, inScore, outScore } =
+  const { id, 골프장, 전반, 후반, 날짜, 시간, inScore, outScore, sum } =
     info[findIndex];
 
   const findGolfzone = holeinfo.findIndex((e) => e.label === 골프장);
-  //console.log(inScore);
+
   const back = () => {
     navigate("/");
   };
   const imgUrl = "/image/sample.png";
   const [modalOpen, setModalOpen] = useState(false);
+
+  useEffect(() => {
+    총스코어(findIndex, 골프장, 전반, 후반);
+  }, [info]);
 
   return (
     <>
@@ -158,6 +163,7 @@ function Score() {
                     display: "flex",
                     flexDirection: "row",
                     justifyContent: "flex-end",
+                    gap: "15px",
                   }}
                 >
                   <div
@@ -167,8 +173,14 @@ function Score() {
                       textAlign: "center",
                     }}
                   >
-                    <span>총 스코어</span>
-                    <strong>0</strong>
+                    <span style={{ fontSize: "12px" }}>총 스코어</span>
+                    <strong style={{ fontSize: "22px", lineHeight: 1 }}>
+                      {`${sum} (${
+                        score.총스코어 > 0
+                          ? "+" + score.총스코어
+                          : score.총스코어
+                      })`}
+                    </strong>
                   </div>
                   <div
                     style={{
@@ -177,8 +189,10 @@ function Score() {
                       textAlign: "center",
                     }}
                   >
-                    <span>퍼팅수</span>
-                    <strong>0</strong>
+                    <span style={{ fontSize: "12px" }}>총 퍼팅수</span>
+                    <strong style={{ fontSize: "22px", lineHeight: 1 }}>
+                      {score.총퍼팅수}
+                    </strong>
                   </div>
                 </Box>
               </CardContent>
