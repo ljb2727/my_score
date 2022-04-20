@@ -12,7 +12,7 @@ function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <Container maxWidth="sm">
+        <Container maxWidth="lg" sx={{ p: 0 }}>
           <Routes>
             <Route path="/" element={<Main />} />
             <Route path="/modify/:golfzone" element={<Modify />} />

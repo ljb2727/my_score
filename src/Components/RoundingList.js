@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import Menu from "../Common/Menu";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router";
-
+import Box from "@mui/material/Box";
 const RoundingList = () => {
   const { info } = useStore();
   // const info = [
@@ -23,7 +23,7 @@ const RoundingList = () => {
   return (
     <>
       {info.map((value) => {
-        const { id, 골프장, 전반, 후반, 날짜, 시간 } = value;
+        const { id, 골프장, 전반, 후반, 날짜, 시간, sum } = value;
 
         return (
           <Item
@@ -34,6 +34,7 @@ const RoundingList = () => {
             후반={후반}
             날짜={날짜}
             시간={시간}
+            sum={sum}
           ></Item>
         );
       })}
@@ -49,7 +50,7 @@ const StyleItem = styled(Paper)(({ theme }) => ({
   color: theme.palette.text,
 }));
 
-function Item({ id, 골프장, 전반, 후반, 날짜, 시간 }) {
+function Item({ id, 골프장, 전반, 후반, 날짜, 시간, sum }) {
   let navigate = useNavigate();
   function rounding(event) {
     navigate(`/score/${id}`);
@@ -67,15 +68,25 @@ function Item({ id, 골프장, 전반, 후반, 날짜, 시간 }) {
             {`전반:${전반}`}
             {후반.length !== 0 && ` - 후반:${후반}`}
           </Typography>
-          <Button
-            variant="contained"
-            size="small"
-            color="secondary"
-            sx={{ position: "absolute", right: "5px", bottom: "5px" }}
-            disableElevation
-          >
-            입력{id}
-          </Button>
+
+          {sum === undefined ? (
+            <Box sx={{ position: "absolute", right: "5px", bottom: "5px" }}>
+              <Button
+                variant="contained"
+                size="small"
+                color="secondary"
+                disableElevation
+              >
+                입력
+              </Button>
+            </Box>
+          ) : (
+            <Box sx={{ position: "absolute", right: "10px", bottom: "5px" }}>
+              <Typography color="error" sx={{ fontSize: "20px" }}>
+                {sum}
+              </Typography>
+            </Box>
+          )}
         </div>
       </StyleItem>
     </>

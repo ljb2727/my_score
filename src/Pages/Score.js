@@ -110,6 +110,14 @@ function Score() {
   useEffect(() => {
     총스코어(findIndex, 골프장, 전반, 후반);
   }, [info]);
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const updateScroll = () => {
+    setScrollPosition(window.scrollY || document.documentElement.scrollTop);
+  };
+  useEffect(() => {
+    window.addEventListener("scroll", updateScroll);
+    console.log("scroll");
+  });
 
   return (
     <>
@@ -118,7 +126,7 @@ function Score() {
         setModalOpen={setModalOpen}
         target={target}
       />
-      <Dialog open={true} fullScreen>
+      <Box>
         <AppBar elevation={0}>
           <Toolbar variant="dense">
             <Box sx={{ width: "10%" }}>
@@ -135,13 +143,34 @@ function Score() {
               variant="h6"
               sx={{ flexGrow: "1", textAlign: "center", marginRight: "10%" }}
             >
-              {골프장}
+              {scrollPosition < 1 ? (
+                <Box>{골프장}</Box>
+              ) : (
+                <Box
+                  sx={{
+                    display: "flex",
+                    gap: "1em",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Box>
+                    스코어
+                    {`${sum} (${
+                      score.총스코어 > 0 ? "+" + score.총스코어 : score.총스코어
+                    })`}
+                  </Box>
+                  <Box>
+                    퍼팅수
+                    {score.총퍼팅수}
+                  </Box>
+                </Box>
+              )}
             </Typography>
           </Toolbar>
         </AppBar>
         <Toolbar variant="dense" />
 
-        <Box>
+        <Box id="scrollY">
           <Card sx={{ borderRadius: "0" }}>
             <CardMedia image={imgUrl}>
               <CardContent
@@ -199,7 +228,7 @@ function Score() {
             </CardMedia>
           </Card>
 
-          <Box sx={{ p: 1 }}>
+          <Box sx={{ px: 2, pb: 2 }}>
             <Box className="first_corse">
               <Box
                 sx={{
@@ -298,7 +327,7 @@ function Score() {
             </Box>
           </Box>
         </Box>
-      </Dialog>
+      </Box>
     </>
   );
 }

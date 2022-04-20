@@ -54,7 +54,7 @@ function Main() {
       <Typography variant="h6" color="initial">
         search {`count : ${count}`}
       </Typography>
-      <Box sx={{ mt: 1 }}>
+      <Box sx={{ mt: 1, p: 2 }}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <Golfzone />
