@@ -289,23 +289,48 @@ const useStore = create((set) => ({
       const idx = Golfzone.findIndex((e) => e.label == id);
       const courseInfo = Golfzone[idx].courseInfo; //홀정보
       const firstHole = courseInfo.find((e) => e.name == 전반).hole;
-      console.log(firstArray);
-      console.log(id);
-      console.log(firstHole);
-      console.log(전반, 후반);
 
-      const firstSum = firstArray
+      // console.log(firstArray);
+      // console.log(id);
+      // console.log(firstHole);
+      // console.log(전반, 후반);
+      // console.log(isHalf);
+
+      let firstSum = firstArray
         .map((e) => {
           let sum = 0;
           if (e !== null) {
-            console.log(typeof firstHole[e].par);
             sum += firstHole[e].par;
           }
           return sum;
         })
         .reduce((a, b) => a + b);
-      console.log(firstSum);
-      state.info[findIndex].sum = firstSum + sumScore;
+      let secondSum = 0;
+
+      if (isHalf == false) {
+        const secondHole = courseInfo.find((e) => e.name == 후반).hole;
+        const secondArray = outScore.map((e, i) => {
+          if (e.score !== null) {
+            return i;
+          } else {
+            return null;
+          }
+        });
+        secondSum = secondArray
+          .map((e) => {
+            let sum = 0;
+            if (e !== null) {
+              sum += secondHole[e].par;
+            }
+            return sum;
+          })
+          .reduce((a, b) => a + b);
+        console.log(secondSum);
+      }
+
+      state.info[findIndex].sum = isHalf
+        ? firstSum + sumScore
+        : firstSum + secondSum + sumScore;
     }),
 }));
 
