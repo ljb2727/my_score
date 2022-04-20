@@ -23,7 +23,7 @@ const useStore = create((set) => ({
       날짜: "2022년 03월 24일",
       시간: "오전 01시 18분", //형식에 맞게 저장
       half: false,
-      sum: 0,
+      sum: 62,
       inScore: [
         { score: 0, put: 2 }, //1
         { score: 1, put: 1 }, //2
@@ -55,7 +55,7 @@ const useStore = create((set) => ({
       날짜: "2022년 04월 24일",
       시간: "오전 10시 30분", //형식에 맞게 저장
       half: false,
-      sum: 0,
+      sum: 54,
       inScore: [
         { score: 4, put: 1 },
         { score: -2, put: 1 },
