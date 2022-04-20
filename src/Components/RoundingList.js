@@ -22,7 +22,7 @@ const RoundingList = () => {
 
   return (
     <>
-      {info.map((value) => {
+      {info.map((value, i) => {
         const { id, 골프장, 전반, 후반, 날짜, 시간, sum } = value;
 
         return (
