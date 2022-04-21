@@ -71,7 +71,10 @@ const useStore = create((set) => ({
       ],
     },
   ],
-
+  setLocalInfo: (value) =>
+    set((state) => {
+      console.log("setLocal" + value);
+    }),
   useGolfzone: "", //골프장명
   setGolfzone: (value) => set((state) => ({ useGolfzone: value })), //셋골프장명
   useCourse: { 전반: "", 후반: "" },
