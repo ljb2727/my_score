@@ -19,7 +19,7 @@ export default function CustomInput(props) {
   let [open, setOpen] = React.useState(false);
 
   React.useEffect(() => {
-    if (props.parentOpen == true) {
+    if (props.parentOpen === true) {
       setOpen(true);
     }
   }, [props.parentOpen]);

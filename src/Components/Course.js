@@ -101,6 +101,7 @@ function Course({ label, id }) {
 
       setCourse({ 전반: "", 후반: "" });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentId]);
 
   return (
