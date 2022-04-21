@@ -5,6 +5,8 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import IconButton from "@mui/material/IconButton";
+import CircularProgress from "@mui/material/CircularProgress";
+
 import { useParams, useNavigate } from "react-router";
 import { Card, CardMedia, CardContent } from "@mui/material";
 
@@ -103,7 +105,7 @@ function Score() {
   const back = () => {
     navigate("/");
   };
-  const imgUrl = "/image/sample.png";
+
   const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
@@ -118,6 +120,20 @@ function Score() {
     window.addEventListener("scroll", updateScroll);
     console.log("scroll");
   });
+
+  const [image, setImage] = useState({});
+  const [loaded, setLoaded] = React.useState(false);
+  function handleImageLoad() {
+    setLoaded(true);
+    console.log("loaded @@@@@");
+  }
+
+  useEffect(() => {
+    const image = new Image();
+    image.onload = handleImageLoad;
+    image.src = "/image/sample.png";
+    setImage(image);
+  }, []);
 
   return (
     <>
@@ -172,7 +188,17 @@ function Score() {
 
         <Box id="scrollY">
           <Card sx={{ borderRadius: "0" }}>
-            <CardMedia image={imgUrl}>
+            <CardMedia image={image.src} sx={{ position: "relative" }}>
+              {loaded === false && (
+                <CircularProgress
+                  size={50}
+                  style={{
+                    position: "absolute",
+                    top: "calc(50% - 25px)",
+                    left: "calc(50% - 25px)",
+                  }}
+                />
+              )}
               <CardContent
                 sx={{
                   height: "46vw",
