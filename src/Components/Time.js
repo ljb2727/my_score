@@ -12,7 +12,6 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Slide from "@mui/material/Slide";
-import useStore from "../Data/useStore"; //useStore
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -23,6 +22,7 @@ export default function Time(props) {
     props.parentTimeOpen && setOpen(true);
   }, [props.parentTimeOpen]);
 
+  // eslint-disable-next-line no-unused-vars
   const [hasDefault, setDefault] = useState(!!props.defaultValue);
   console.log(hasDefault);
 
@@ -65,8 +65,8 @@ export default function Time(props) {
         time.push(str.slice(-2));
       }
     } else {
-      for (var i = 1; i <= num; i++) {
-        let str = "0" + String(i);
+      for (var y = 1; y <= num; y++) {
+        let str = "0" + String(y);
         time.push(str.slice(-2));
       }
     }

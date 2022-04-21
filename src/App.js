@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Container from "@mui/material/Container";
@@ -8,20 +8,8 @@ import Score from "./Pages/Score";
 import theme from "./Common/theme";
 import Test from "./Pages/Test";
 import { ThemeProvider } from "@mui/material/styles";
-import useStore from "./Data/useStore";
 
 function App() {
-  const { info, setLocalInfo } = useStore();
-
-  const [storageInfo, setStorageInfo] = useState();
-
-  useEffect(() => {
-    console.log("1");
-    window.localStorage.setItem("storageInfo", JSON.stringify(info));
-    console.log("2");
-    setLocalInfo("@@@");
-  }, [info]);
-
   return (
     <>
       <ThemeProvider theme={theme}>

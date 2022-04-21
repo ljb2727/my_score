@@ -280,9 +280,9 @@ const useStore = create((set) => ({
           return null;
         }
       });
-      const idx = Golfzone.findIndex((e) => e.label == id);
+      const idx = Golfzone.findIndex((e) => e.label === id);
       const courseInfo = Golfzone[idx].courseInfo; //홀정보
-      const firstHole = courseInfo.find((e) => e.name == 전반).hole;
+      const firstHole = courseInfo.find((e) => e.name === 전반).hole;
 
       // console.log(firstArray);
       // console.log(id);
@@ -301,8 +301,8 @@ const useStore = create((set) => ({
         .reduce((a, b) => a + b);
       let secondSum = 0;
 
-      if (isHalf == false) {
-        const secondHole = courseInfo.find((e) => e.name == 후반).hole;
+      if (isHalf === false) {
+        const secondHole = courseInfo.find((e) => e.name === 후반).hole;
         const secondArray = outScore.map((e, i) => {
           if (e.score !== null) {
             return i;

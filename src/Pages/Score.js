@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import Dialog from "@mui/material/Dialog";
 import Box from "@mui/material/Box";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import IconButton from "@mui/material/IconButton";
@@ -109,6 +108,7 @@ function Score() {
 
   useEffect(() => {
     총스코어(findIndex, 골프장, 전반, 후반);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [info]);
   const [scrollPosition, setScrollPosition] = useState(0);
   const updateScroll = () => {

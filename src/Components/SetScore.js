@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import FormControl from "@mui/material/FormControl";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
@@ -23,7 +23,7 @@ export default function SetScore({ modalOpen, setModalOpen, target }) {
   const { golfzone } = useParams();
   const { info, 스코어수정, 기본스코어 } = useStore();
   //console.log(target); //inCourse, hole, par, meter, id, 골프장, 전반, 후반
-  const { inCourse, hole = 0, par, meter, id, 골프장, 전반, 후반 } = target;
+  const { inCourse, hole = 0, par, meter, id } = target;
   const findIndex = info.findIndex((e) => e.id === golfzone);
 
   function defaultZero() {
