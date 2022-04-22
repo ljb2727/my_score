@@ -101,6 +101,7 @@ function Golfzone() {
             popupIcon={null}
             noOptionsText={"검색된 골프장이 없습니다."}
           />
+          *초성 검색 가능 ㄱ 입력 ㄱㄱ
         </DialogContent>
         <DialogActions>
           <Button
@@ -114,7 +115,6 @@ function Golfzone() {
           </Button>
         </DialogActions>
       </Dialog>
-
       <TextField
         id="golfzone"
         fullWidth

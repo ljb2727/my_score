@@ -112,13 +112,16 @@ function Score() {
     총스코어(findIndex, 골프장, 전반, 후반);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [info]);
+
   const [scrollPosition, setScrollPosition] = useState(0);
   const updateScroll = () => {
     setScrollPosition(window.scrollY || document.documentElement.scrollTop);
   };
   useEffect(() => {
     window.addEventListener("scroll", updateScroll);
-    console.log("scroll");
+    return () => {
+      window.removeEventListener("scroll", updateScroll);
+    };
   });
 
   const [image, setImage] = useState({});

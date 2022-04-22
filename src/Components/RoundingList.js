@@ -7,21 +7,13 @@ import Menu from "../Common/Menu";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router";
 import Box from "@mui/material/Box";
+
 const RoundingList = () => {
-  const { info } = useStore();
-  // const info = [
-  //   {
-  //     id: 0,
-  //     골프장: "강남300",
-  //     전반: "a1",
-  //     후반: "a2",
-  //     날짜: "2022년 03월 24일",
-  //     시간: "오전 10시 30분",
-  //   },
-  // ];
+  const { info, test } = useStore();
 
   return (
     <>
+      {test}
       {info.map((value, i) => {
         const { id, 골프장, 전반, 후반, 날짜, 시간, sum } = value;
 
