@@ -11,13 +11,10 @@ import { ThemeProvider } from "@mui/material/styles";
 import useStore from "./Data/useStore";
 
 function App() {
-  const { info } = useStore();
+  const { info, setLocalInfo } = useStore();
 
-  useEffect(() => {
-    return () => {
-      console.log("out!");
-    };
-  });
+  useEffect(() => {}, []);
+
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -27,6 +24,7 @@ function App() {
             <Route path="/modify/:golfzone" element={<Modify />} />
             <Route path="/score/:golfzone" element={<Score />} />
           </Routes>
+          <button onClick={() => setLocalInfo([])}>click</button>
         </Container>
       </ThemeProvider>
     </>

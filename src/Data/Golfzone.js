@@ -94,6 +94,20 @@ const golfzone = [
           { par: 5, meter: 491 },
         ],
       },
+      {
+        name: "new강남300d",
+        hole: [
+          { par: 5, meter: 111 },
+          { par: 4, meter: 315 },
+          { par: 3, meter: 164 },
+          { par: 4, meter: 325 },
+          { par: 4, meter: 328 },
+          { par: 4, meter: 355 },
+          { par: 3, meter: 136 },
+          { par: 4, meter: 353 },
+          { par: 5, meter: 491 },
+        ],
+      },
     ],
   },
   {

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import create from "zustand";
 import { devtools } from "zustand/middleware";
 import Golfzone from "./Golfzone";
@@ -7,74 +8,45 @@ const useStore = create(
     count: 999, //아이디부여
     currentId: null, //현재 선택된 골프장의 코스 정보를 알기위한 임시 아이디
     score: { 총스코어: 0, 총퍼팅수: 0 },
-    info: [
-      {
-        id: "2",
-        골프장: "강남300",
-        전반: "new강남300a",
-        후반: "new강남300b",
-        날짜: "2022년 03월 24일",
-        시간: "오전 01시 18분", //형식에 맞게 저장
-        half: false,
-        sum: 62,
-        inScore: [
-          { score: 0, put: 2 }, //1
-          { score: 1, put: 1 }, //2
-          { score: 2, put: 1 }, //3
-          { score: 0, put: 1 }, //4
-          { score: 4, put: 1 }, //5
-          { score: 0, put: 1 }, //6
-          { score: null, put: null }, //7
-          { score: null, put: null }, //8
-          { score: null, put: null }, //9
-        ],
-        outScore: [
-          { score: 0, put: 1 },
-          { score: 0, put: 1 },
-          { score: 0, put: 1 },
-          { score: 0, put: 1 },
-          { score: 0, put: 1 },
-          { score: 0, put: 1 },
-          { score: 0, put: 1 },
-          { score: 0, put: 2 },
-          { score: null, put: null },
-        ],
-      },
-      {
-        id: "1",
-        골프장: "강촌명문",
-        전반: "강촌명문a",
-        후반: "강촌명문b",
-        날짜: "2022년 04월 24일",
-        시간: "오전 10시 30분", //형식에 맞게 저장
-        half: false,
-        sum: 54,
-        inScore: [
-          { score: 4, put: 1 },
-          { score: -2, put: 1 },
-          { score: -1, put: 1 },
-          { score: 0, put: 1 },
-          { score: 4, put: 1 },
-          { score: 0, put: 1 },
-          { score: null, put: null },
-          { score: null, put: null },
-          { score: null, put: null },
-        ],
-        outScore: [
-          { score: 0, put: 1 },
-          { score: -2, put: 1 },
-          { score: -1, put: 1 },
-          { score: 0, put: 1 },
-          { score: 4, put: 1 },
-          { score: 0, put: 1 },
-          { score: null, put: null },
-          { score: null, put: null },
-          { score: null, put: null },
-        ],
-      },
-    ],
+    // [
+    //   {
+    //     id: "2",
+    //     골프장: "강남300",
+    //     전반: "new강남300a",
+    //     후반: "new강남300b",
+    //     날짜: "2022년 03월 24일",
+    //     시간: "오전 01시 18분", //형식에 맞게 저장
+    //     half: false,
+    //     sum: 62,
+    //     inScore: [
+    //       { score: 0, put: 2 }, //1
+    //       { score: 1, put: 1 }, //2
+    //       { score: 2, put: 1 }, //3
+    //       { score: 0, put: 1 }, //4
+    //       { score: 4, put: 1 }, //5
+    //       { score: 0, put: 1 }, //6
+    //       { score: null, put: null }, //7
+    //       { score: null, put: null }, //8
+    //       { score: null, put: null }, //9
+    //     ],
+    //     outScore: [
+    //       { score: 0, put: 1 },
+    //       { score: 0, put: 1 },
+    //       { score: 0, put: 1 },
+    //       { score: 0, put: 1 },
+    //       { score: 0, put: 1 },
+    //       { score: 0, put: 1 },
+    //       { score: 0, put: 1 },
+    //       { score: 0, put: 2 },
+    //       { score: null, put: null },
+    //     ],
+    //   }
+    // ]
+    info: JSON.parse(localStorage.getItem("storageInfo")) || [],
     setLocalInfo: (value) =>
       set((state) => {
+        console.log(value);
+        console.log(state.count);
         return { info: value };
       }),
     useGolfzone: "", //골프장명
