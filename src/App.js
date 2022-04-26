@@ -11,9 +11,27 @@ import { ThemeProvider } from "@mui/material/styles";
 import useStore from "./Data/useStore";
 
 function App() {
-  const { info, setLocalInfo } = useStore();
+  const { info, 기본카운트설정 } = useStore();
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if (info.length === 0) {
+      console.log("empty");
+      localStorage.setItem("storageInfo", JSON.stringify([]));
+      localStorage.setItem("storageCount", 999);
+    } else {
+      console.log(typeof info.length);
+      localStorage.setItem("storageInfo", JSON.stringify(info));
+      localStorage.setItem(
+        "storageCount",
+        Number(
+          Math.max.apply(
+            null,
+            info.map((e) => e.id)
+          ) + 1
+        )
+      );
+    }
+  });
 
   return (
     <>
@@ -24,7 +42,6 @@ function App() {
             <Route path="/modify/:golfzone" element={<Modify />} />
             <Route path="/score/:golfzone" element={<Score />} />
           </Routes>
-          <button onClick={() => setLocalInfo([])}>click</button>
         </Container>
       </ThemeProvider>
     </>
