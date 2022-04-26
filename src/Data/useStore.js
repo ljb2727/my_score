@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import create from "zustand";
 import { devtools } from "zustand/middleware";
 import Golfzone from "./Golfzone";

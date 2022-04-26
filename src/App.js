@@ -11,7 +11,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import useStore from "./Data/useStore";
 
 function App() {
-  const { info, 기본카운트설정 } = useStore();
+  const { info } = useStore();
 
   useEffect(() => {
     if (info.length === 0) {
