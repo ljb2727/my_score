@@ -19,7 +19,6 @@ function App() {
       localStorage.setItem("storageInfo", JSON.stringify([]));
       localStorage.setItem("storageCount", 999);
     } else {
-      console.log(typeof info.length);
       localStorage.setItem("storageInfo", JSON.stringify(info));
       localStorage.setItem(
         "storageCount",

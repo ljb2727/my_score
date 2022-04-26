@@ -27,7 +27,7 @@ const filterOptions = (options, { inputValue }) => {
 };
 function Golfzone() {
   const { useGolfzone, setGolfzone, setId } = useStore();
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   const [openDia, setDia] = useState(false);
 
   function blur() {
@@ -69,6 +69,8 @@ function Golfzone() {
               console.log(newValue);
               if (newValue !== null) {
                 setId(newValue.id);
+              } else {
+                setOpen(true);
               }
             }}
             onInputChange={(_, value) => {
