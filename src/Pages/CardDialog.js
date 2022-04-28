@@ -23,7 +23,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import Slide from "@mui/material/Slide";
 import { styled } from "@mui/system";
-import theme from "../Common/theme";
+
 import "./CardDialog.css";
 
 function ScoreCard() {
@@ -115,7 +115,6 @@ function ScoreCard() {
       console.log("loaded @@@@@");
     }
 
-    const [open, setOpen] = useState(true);
     const [openDia, setDia] = useState(false);
 
     useEffect(() => {
@@ -217,13 +216,23 @@ function ScoreCard() {
                       height: "46vw",
                       display: "flex",
                       flexDirection: "column",
-                      justifyContent: "space-between",
+                      justifyContent: "center",
                     }}
                   >
-                    <Typography color="common.white">
-                      {날짜} / {시간} <br />
-                      전반 : {전반} <br />
-                      {!!후반 && `후반 : ${후반}`}
+                    <Typography
+                      color="common.white"
+                      style={{ textAlign: "center" }}
+                    >
+                      <span style={{ fontSize: "4vw" }}>
+                        {날짜} {시간}
+                      </span>
+                      <br />
+                      <strong style={{ fontSize: "6vw" }}>{골프장}</strong>{" "}
+                      <br />
+                      <span style={{ fontSize: "4vw" }}>
+                        {전반}
+                        {!!후반 && ` - ${후반}`}
+                      </span>
                     </Typography>
                     <Box
                       color="common.white"
@@ -247,33 +256,27 @@ function ScoreCard() {
                           flexDirection: "column",
                           textAlign: "center",
                         }}
-                      >
-                        <span style={{ fontSize: "12px" }}>총 스코어</span>
-                        <strong style={{ fontSize: "22px", lineHeight: 1 }}>
-                          {`${sum} (${
-                            score.총스코어 > 0
-                              ? "+" + score.총스코어
-                              : score.총스코어
-                          })`}
-                        </strong>
-                      </div>
-                      <div
-                        style={{
-                          display: "flex",
-                          flexDirection: "column",
-                          textAlign: "center",
-                        }}
-                      >
-                        <span style={{ fontSize: "12px" }}>총 퍼팅수</span>
-                        <strong style={{ fontSize: "22px", lineHeight: 1 }}>
-                          {score.총퍼팅수}
-                        </strong>
-                      </div>
+                      ></div>
                     </Box>
                   </CardContent>
                 </CardMedia>
               </Card>
             </Box>
+
+            <strong
+              style={{
+                display: "block",
+                fontSize: "14px",
+                lineHeight: 1,
+                textAlign: "right",
+                paddingTop: "5px",
+                color: "#6BCB77",
+              }}
+            >
+              {`${sum} (${
+                score.총스코어 > 0 ? "+" + score.총스코어 : score.총스코어
+              })`}
+            </strong>
             <TableContainer component={Paper} sx={{ mt: 0.5 }}>
               {/* 전반 */}
               <Table
