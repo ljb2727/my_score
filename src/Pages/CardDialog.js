@@ -217,6 +217,7 @@ function ScoreCard() {
                       display: "flex",
                       flexDirection: "column",
                       justifyContent: "center",
+                      paddingBottom: "16px !important",
                     }}
                   >
                     <Typography
@@ -291,7 +292,7 @@ function ScoreCard() {
                 <TableHead
                   sx={{
                     "& th": {
-                      fontSize: "2vw",
+                      fontSize: "3vw",
                       background: "#9e9e9e",
                       color: "#fff",
                     },
@@ -319,7 +320,7 @@ function ScoreCard() {
                         "&:last-child&:last-child td, &:last-child th": {
                           border: 0,
                         },
-                        "& th,& td": { fontSize: "2vw", py: 0.5 },
+                        "& th,& td": { fontSize: "3vw", py: 0.5 },
                         "& th": { fontWeight: "bold" },
                       }}
                     >
@@ -411,7 +412,7 @@ function ScoreCard() {
                   <TableHead
                     sx={{
                       "& th": {
-                        fontSize: "2vw",
+                        fontSize: "3vw",
                         background: "#9e9e9e",
                         color: "#fff",
                       },
@@ -439,7 +440,7 @@ function ScoreCard() {
                           "&:last-child&:last-child td, &:last-child th": {
                             border: 0,
                           },
-                          "& th,& td": { fontSize: "2vw", py: 0.5 },
+                          "& th,& td": { fontSize: "3vw", py: 0.5 },
                           "& th": { fontWeight: "bold" },
                         }}
                       >
