@@ -5,6 +5,7 @@ import Container from "@mui/material/Container";
 import Main from "./Pages/Main";
 import Modify from "./Pages/Modify";
 import Score from "./Pages/Score";
+import Card from "./Pages/Card";
 import theme from "./Common/theme";
 
 import { ThemeProvider } from "@mui/material/styles";
@@ -40,6 +41,7 @@ function App() {
             <Route path="/" element={<Main />} />
             <Route path="/modify/:golfzone" element={<Modify />} />
             <Route path="/score/:golfzone" element={<Score />} />
+            <Route path="/card/:golfzone" element={<Card />} />
           </Routes>
         </Container>
       </ThemeProvider>

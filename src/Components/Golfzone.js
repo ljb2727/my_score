@@ -57,7 +57,7 @@ function Golfzone() {
         TransitionComponent={Transition}
       >
         <AppBar position="static" color="primary" elevation={0}>
-          <Toolbar variant="dense">
+          <Toolbar variant="dense" sx={{ justifyContent: "center" }}>
             <Typography variant="h6">골프장 검색</Typography>
           </Toolbar>
         </AppBar>

@@ -11,6 +11,7 @@ import { useParams, useNavigate } from "react-router";
 import { Card, CardMedia, CardContent } from "@mui/material";
 
 import ScorePut from "../Components/SetScore"; //점수 설정 모달
+import CardDialog from "../Pages/CardDialog";
 
 import useStore from "../Data/useStore";
 import holeinfo from "../Data/Golfzone";
@@ -113,16 +114,16 @@ function Score() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [info]);
 
-  const [scrollPosition, setScrollPosition] = useState(0);
-  const updateScroll = () => {
-    setScrollPosition(window.scrollY || document.documentElement.scrollTop);
-  };
-  useEffect(() => {
-    window.addEventListener("scroll", updateScroll);
-    return () => {
-      window.removeEventListener("scroll", updateScroll);
-    };
-  });
+  // const [scrollPosition, setScrollPosition] = useState(0);
+  // const updateScroll = () => {
+  //   setScrollPosition(window.scrollY || document.documentElement.scrollTop);
+  // };
+  // useEffect(() => {
+  //   window.addEventListener("scroll", updateScroll);
+  //   return () => {
+  //     window.removeEventListener("scroll", updateScroll);
+  //   };
+  // });
 
   const [image, setImage] = useState({});
   const [loaded, setLoaded] = React.useState(false);
@@ -162,7 +163,8 @@ function Score() {
               variant="h6"
               sx={{ flexGrow: "1", textAlign: "center", marginRight: "10%" }}
             >
-              {scrollPosition < 1 ? (
+              <Box>{골프장}</Box>
+              {/* {scrollPosition < 1 ? (
                 <Box>{골프장}</Box>
               ) : (
                 <Box
@@ -183,7 +185,7 @@ function Score() {
                     {score.총퍼팅수}
                   </Box>
                 </Box>
-              )}
+              )} */}
             </Typography>
           </Toolbar>
         </AppBar>
@@ -215,6 +217,15 @@ function Score() {
                   전반 : {전반} <br />
                   {!!후반 && `후반 : ${후반}`}
                 </Typography>
+                <Box
+                  color="common.white"
+                  style={{
+                    position: "absolute",
+                    bottom: "16px",
+                  }}
+                >
+                  <CardDialog />
+                </Box>
                 <Box
                   color="common.white"
                   style={{
