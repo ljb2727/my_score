@@ -172,7 +172,7 @@ function ScoreCard() {
         <Button
           onClick={() => setDia(true)}
           variant="contained"
-          color="common"
+          color="primary"
           size="small"
         >
           스코어 카드
